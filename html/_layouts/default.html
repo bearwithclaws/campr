@@ -1,7 +1,12 @@
 ---
 layout: base
 ---
-<div id="content" class="container">	
+{% include header.html %}
+<div id="top-bar" class="container">
+  <div class="fl"><a href="/" class="logo"><img src="images/powered-by.png" /></a></div>
+  <div class="fr">Welcome @felixleong <a href="#">(Sign Out)</a></div>
+</div>
+<div id="content" class="container">
     {{ content }}
 </div>
 {% include footer.html %}

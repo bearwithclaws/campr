@@ -17,9 +17,10 @@
 	#Font-Face */
 	
 body { 
-	background: #f1f1f1;
+	background: #000 url(../images/bg.png) repeat-y;
 	font-family: "Lucida Grande", "Verdana", "Gargi_1.7", "Jamrul", "Garuda", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
+
 
 #content {
 	background: #fff;
@@ -32,7 +33,13 @@ body {
 }
 
 
-
+#content h1.top-title {
+	position: absolute;
+	top: -50px;
+	font-size: 60px;
+	left: 0px;
+	color: #fff;
+}
 #content h1 {
 	font-family: arial;
 	font-weight: bolder;
