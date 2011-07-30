@@ -11,7 +11,7 @@ class Event(models.Model):
 class Status(models.Model):
     event = models.ForeignKey(Event)
     user = models.ForeignKey(User)
-    time = models.TimeField(auto_now_add=True)
+    time = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=140)
 
     class Meta:
@@ -19,3 +19,8 @@ class Status(models.Model):
 
     def __unicode__(self):
         return '{0} - [{1}] {2}'.format(self.event, self.time, self.message)
+
+class Vote(model.Model):
+    event = models.ForeignKey(Event)
+    recipient = models.ForeignKey(User)
+    voter = models.ForeignKey(User)
