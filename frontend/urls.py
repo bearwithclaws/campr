@@ -14,8 +14,8 @@ urlpatterns = patterns('',
     url(r'', include('frontend.app.urls')),
     url(r'', include('social_auth.urls')),
 
-    url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': settings.STATIC_ROOT}),
 
     # Examples:
     # url(r'^$', 'frontend.views.home', name='home'),
