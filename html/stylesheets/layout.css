@@ -142,8 +142,8 @@ ul#attendees li span.bubble {
 
 .my-status .bubble {
 	position: absolute;
-	bottom: 80px;
-	left: 150px;
+	bottom: 100px;
+	left: 100px;
 }
 
 .my-status .bubble .bottom {
