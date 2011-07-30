@@ -4,7 +4,7 @@ from piston.handler import BaseHandler
 from piston.utils import rc, require_mime, require_extended
 from piston.utils import validate
 
-from frontend.events.models import Event, Status
+from frontend.events.models import Event, Status, Vote
 
 class EventHandler(BaseHandler):
     model = Event
@@ -36,11 +36,27 @@ class StatusHandler(BaseHandler):
             request.data = request.POST
 
         attrs = self.flatten_dict(request.data)
-        if self.exists(**attrs):
-            return rc.DUPLICATE_ENTRY
-        else:
-            status = Status(event=attrs['event'],
-                        user=request.user,
-                        message=attrs['message'])
-            status.save()
-            return status
+        status = Status(event=attrs['event'],
+                    user=request.user,
+                    message=attrs['message'])
+        status.save()
+        return status
+
+class VoteHandler(BaseHandler):
+    model = Vote
+
+    def read(self, request, *args, **kwargs):
+        qs = self.queryset(request)
+        return qs.filter(*args, **kwargs)
+
+    def create(self, request):
+        if not hasattr(request, "data"):
+            request.data = request.POST
+
+        attrs = self.flatten_dict(request.data)
+
+        vote = Vote(event=attrs['event'],
+                    voter=request.user,
+                    recipient=attrs['recipient'])
+        vote.save()
+        return vote

@@ -20,7 +20,7 @@ class Status(models.Model):
     def __unicode__(self):
         return '{0} - [{1}] {2}'.format(self.event, self.time, self.message)
 
-class Vote(model.Model):
+class Vote(models.Model):
     event = models.ForeignKey(Event)
-    recipient = models.ForeignKey(User)
-    voter = models.ForeignKey(User)
+    recipient = models.ForeignKey(User, related_name='recipients')
+    voter = models.ForeignKey(User, related_name='voters')
