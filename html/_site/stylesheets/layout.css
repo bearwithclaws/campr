@@ -55,6 +55,103 @@ a.twitter:active {
 	background-position: 0 -48px;
 }
 
+ul#attendees {
+	margin-top: 100px;
+	clear: both;
+	float: left;
+}
+
+ul#attendees li {
+	float: left;
+	position: relative;
+	margin-right: 24px;
+	margin-bottom: 70px
+}
+
+ul#attendees li img {
+	width: 120px;
+	height: 120px;
+	border: 1px solid #ccc;
+}
+
+
+.bubble .top{
+	background: url(../images/speechbubble_r1_c1_s1.png) no-repeat;
+	position: absolute;
+	width: 129px;
+	height: 9px;
+	top:-60px;
+}
+
+.bubble .speech {
+	top: -51px;
+	width: 110px;
+	padding-right: 3px;
+	background: url(../images/speechbubble_r2_c1_s1.png) repeat-y;
+	position: absolute;
+	padding-left: 13px;
+}
+
+.bubble .bottom{
+	background: url(../images/speechbubble_r3_c1_s1.png) no-repeat;
+	position: absolute;
+	width: 129px;
+	height: 30px;
+	top:-15px;
+}
+
+ul#attendees li span.bubble {
+	position: absolute;
+	background: url(../images/speechbubble.png) no-repeat;
+	width: 129px;
+	height: 60px;
+	top: -43px;
+	left: -3px;
+	padding-left: 15px;
+	padding-top: 10px;
+}
+
+.status textarea {
+	border: 2px solid #ccc;
+	font-size: 16px;
+	color: #000;
+	padding: 10px;
+	width: 450px;
+	margin-bottom: 10px;
+}
+
+.status {
+	text-align: right;
+	width: 475px;
+	float: left;
+}
+
+.status h1 {
+	text-align: left;
+}
+
+.status input.button{
+	font-size: 16px;
+}
+.my-status {
+	float: right;
+	width: 370px;
+	margin-top: 50px;
+	position: relative;
+}
+
+.my-status .bubble {
+	position: absolute;
+	bottom: 80px;
+	left: 150px;
+}
+
+.my-status .bubble .bottom {
+	top: -9px;
+}
+.my-status img {
+	border:1px solid #ccc
+}
 
 
 /* #Site Styles
