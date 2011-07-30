@@ -8,7 +8,8 @@ from social_auth import __version__ as version
 # Create your views here.
 def login(request):
     """Logs in user"""
-    return render_to_response('accounts/login.html')
+    nextParam = request.GET.get('next', '')
+    return render_to_response('accounts/login.html', {'next': nextParam})
 
 def error(request):
     """Error view"""
