@@ -79,17 +79,22 @@ a.twitter:active {
 }
 
 ul#attendees {
-	margin-top: 20px;
 	clear: both;
 	float: left;
+	margin-left: -24px;
+}
+
+ul#attendees.vanilla li{
+	margin-top: 10px;
 }
 
 ul#attendees li {
 	float: left;
-	margin-top: 60px;
+	margin-top: 70px;
 	position: relative;
-	margin-right: 24px;
+	margin-left: 28px;
 	height: 180px;
+	margin-bottom: 30px;
 }
 
 ul#attendees li .attendee-name {
@@ -150,7 +155,7 @@ ul#attendees li img {
 	height: 30px;
 }
 
-.vote a.thumbs-up:hover {
+.vote a.thumbs-up:hover, .vote a.thumbs-up.voted {
 	background-position: 0 -38px;
 }
 
@@ -173,33 +178,63 @@ ul#attendees li span.bubble {
 	padding-top: 10px;
 }
 
+ul#attendees li input.button {
+	position: absolute;
+	left: 0;
+	bottom: -18px;
+	font-size: 14px;
+	width: 122px;
+}
+
 .status textarea {
 	border: 2px solid #ccc;
 	font-size: 16px;
 	color: #000;
 	padding: 10px;
-	width: 450px;
+	width:400px;
+	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
 .status {
 	text-align: right;
-	width: 475px;
-	float: left;
+	background: #f1f1f1;
+	margin-left: -40px;
+	margin-top: -26px;
+	padding: 20px 40px;
+	width: 880px;
+	margin-bottom: 30px;
+	height: 180px;
 }
 
 .status h2 {
 	text-align: left;
 }
 
+.status p {
+	float: left;
+	margin-top: 20px;
+	text-align: left;
+}
+
+.status textarea {
+	float: left;
+	margin: 0;
+	
+}
+
 .status input.button{
 	font-size: 16px;
+	float: left;
+	margin-left: 20px;
 }
 .my-status {
-	float: right;
-	width: 370px;
-	margin-top: 50px;
+	float: left;
 	position: relative;
+	margin-right: 40px;
+	margin-top: 12px;
+	margin-left: 80px;
+	height: 191px;
 }
 
 .my-status .bubble {
@@ -215,7 +250,48 @@ ul#attendees li span.bubble {
 	border:1px solid #ccc
 }
 
+.my-status .attendee-name {
+	background: #398AA6;
+	position: absolute;
+	border: 1px solid #ccc;
+	border-top: 0px;
+	width: 128px;
+	color: #fff;
+	text-align: center;
+	padding: 4px 0;
+	bottom: 32px;
+}
 
+.my-status .vote{
+	bottom: 35px;
+	right: -100px;	
+}
+
+
+.tweet {
+	clear: both;
+	margin: 0 auto;
+	width: 520px;
+	background: #ccc;
+}
+
+.tweet textarea {
+	border: 2px solid #ccc;
+	font-size: 16px;
+	color: #000;
+	padding: 10px;
+	width:400px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	float: left;
+	margin-right: 20px;
+}
+
+.tweet input.submit {
+	font-size: 16px;
+	float: left;
+	margin-top: 10px;
+}
 /* #Site Styles
 ================================================== */
 
