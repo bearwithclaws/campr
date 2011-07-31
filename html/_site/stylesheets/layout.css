@@ -181,7 +181,7 @@ ul#attendees li span.bubble {
 ul#attendees li input.button {
 	position: absolute;
 	left: 0;
-	bottom: -18px;
+	bottom: -22px;
 	font-size: 14px;
 	width: 122px;
 }
