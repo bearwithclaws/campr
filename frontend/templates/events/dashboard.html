@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Dashboard</h1>
+<h1>{{ event.name }} dashboard</h1>
     <div class="status">
       <h2>What's your status?</h2>
        <form id="update-status" action="{{ update_status_action }}">
