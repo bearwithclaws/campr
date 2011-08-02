@@ -14,7 +14,7 @@ def dashboard(request, event_id):
     ctx = {'accounts': request.user.social_auth.all(),
            'version': version,
            'last_login': request.session.get('social_auth_last_login_backend'),
-           'username': request.user.username,
+           'user': request.user,
            'event': event,
            }
     return render_to_response('events/dashboard.html', ctx, RequestContext(request))

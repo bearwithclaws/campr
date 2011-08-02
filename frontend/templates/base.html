@@ -39,8 +39,8 @@
 </div>
 <div id="top-bar" class="container">
   <div class="fl"><a href="/" class="logo"><img src="{{ MEDIA_URL }}images/powered-by.png" /></a></div>
-  {% if username %}
-  <div class="fr">Welcome @{{ username }} <a href="/accounts/logout">(Sign Out)</a></div>
+  {% if user.username %}
+  <div class="fr">Welcome @{{ user.username }} <a href="/accounts/logout">(Sign Out)</a></div>
   {% endif %}
 </div>
 <div id="content" class="container">
