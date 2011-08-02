@@ -1,9 +1,25 @@
 $(function() {
+
+    var status_bubble = $('.my-status .bubble');
+    var status_text = status_bubble.find('.speech');
+    var update_status = $('#update-status');
+
+    if (status_text.html().length === 0) {
+        status_bubble.hide();
+    }
+
+    update_status.find('textarea[name=message]').focus(function() {
+        $(this).val("");
+    }).blur(function() {
+        if ($(this).val() === "") {
+            $(this).val(status_text.html());
+        }
+    });
+
     $('#update-status').submit(function() {
         var form = $(this);
-        var status_message = form.find('textarea[name=status]').val();
-        $('.speech', '.my-status').html(status_message);
-        return false;
+        var status_message = form.find('textarea[name=message]').val();
+        status_bubble.show().find('.speech').html(status_message);
         // $.post(
         //     form.attr('action'),
         //     form.serialize(),
@@ -14,7 +30,7 @@ $(function() {
         //     },
         //     'json'
         // );
-        // return false;
+        return false;
     });
 
     // $('.vote').click(function() {
