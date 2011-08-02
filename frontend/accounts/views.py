@@ -9,7 +9,8 @@ from social_auth import __version__ as version
 def login(request):
     """Logs in user"""
     nextParam = request.GET.get('next', '')
-    return render_to_response('accounts/login.html', {'next': nextParam})
+    return render_to_response('accounts/login.html',
+        {'next': nextParam}, RequestContext(request))
 
 def error(request):
     """Error view"""
