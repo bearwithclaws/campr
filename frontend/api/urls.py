@@ -11,6 +11,6 @@ votes = Resource(handler=VoteHandler, authentication=django_auth)
 
 urlpatterns = patterns('frontend.api.views',
     url(r'^events/(?P<id>\d+)/$', events),
-    url(r'^events/(?P<event>\d+)/statuses/$', statuses),
-    url(r'^events/(?P<event>\d+)/votes/$', votes),
+    url(r'^events/(?P<event_id>\d+)/statuses/$', statuses),
+    url(r'^events/(?P<event_id>\d+)/votes/$', votes),
 )

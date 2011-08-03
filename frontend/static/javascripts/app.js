@@ -19,17 +19,16 @@ $(function() {
     $('#update-status').submit(function() {
         var form = $(this);
         var status_message = form.find('textarea[name=message]').val();
-        status_bubble.show().find('.speech').html(status_message);
-        // $.post(
-        //     form.attr('action'),
-        //     form.serialize(),
-        //     function(response) {
-        //         if (response.success === 'success') {
-        //             $('speech', '.my-status').html(status_message);
-        //         }
-        //     },
-        //     'json'
-        // );
+        $.post(
+            form.attr('action'),
+            form.serialize(),
+            function(response) {
+                if (response.message) {
+                    status_bubble.show().find('.speech').html(response.message);
+                }
+            },
+            'json'
+        );
         return false;
     });
 

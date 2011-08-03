@@ -31,14 +31,14 @@ class StatusHandler(BaseHandler):
                 .annotate(last_update=Max('user__status__time')) \
                 .filter(time=F('last_update'))
 
-    def create(self, request):
+    def create(self, request, event_id):
         if not hasattr(request, "data"):
             request.data = request.POST
 
         attrs = self.flatten_dict(request.data)
-        status = Status(event=attrs['event'],
-                    user=request.user,
-                    message=attrs['message'])
+        status = Status(event=Event.objects.get(id=event_id),
+                        user=request.user,
+                        message=attrs['message'])
         status.save()
         return status
 
