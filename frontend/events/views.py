@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from frontend.events.models import Event, Checkin, Message
 
+import tweepy
 
 # Create your views here.
 def dashboard(request, event_id):
@@ -12,6 +13,8 @@ def dashboard(request, event_id):
     user = request.user
     checkin = Checkin.objects.filter(user=user.id, event=event.id)[0]
     status = Message.objects.filter(checkin=checkin.id).latest('time')
+
+    twitter_user = tweepy.api.get_user(user.username)
 
     #TODO: Get list of users who are checked in the same event and their latest
     #      status
@@ -24,6 +27,7 @@ def dashboard(request, event_id):
         'user': user,
         'event': event,
         'status': status,
+        'profile_image_url': twitter_user.profile_image_url,
     }
     return render_to_response('events/dashboard_loggedin.html', ctx, RequestContext(request))
 
@@ -36,5 +40,3 @@ def checkin(request, event_id):
     checkin, created = Checkin.objects.get_or_create(event=event, user=user)
 
     return redirect(dashboard, event_id=event_id)
-
-
