@@ -27,7 +27,7 @@ def dashboard(request, event_id):
         'user': user,
         'event': event,
         'status': status,
-        'profile_image_url': twitter_user.profile_image_url,
+        'profile_image_url': twitter_user.profile_image_url.replace('_normal', '_bigger'),
     }
     return render_to_response('events/dashboard_loggedin.html', ctx, RequestContext(request))
 
