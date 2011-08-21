@@ -202,12 +202,6 @@ ul#attendees li span.bubble {
 	position: relative;
 }
 
-.my-status .bubble {
-	position: absolute;
-	bottom: 100px;
-	left: 100px;
-}
-
 .my-status .bubble .bottom {
 	top: -9px;
 }
