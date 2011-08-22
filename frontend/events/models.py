@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+try:
+    from events.signals import *
+except:
+    pass
 
 class Event(models.Model):
     name = models.CharField(max_length=200)
@@ -16,6 +20,7 @@ class Checkin(models.Model):
 class Status(models.Model):
     checkin = models.ForeignKey(Checkin)
     message = models.CharField(max_length=140)
+    time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = 'statuses'

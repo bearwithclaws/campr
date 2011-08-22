@@ -1,24 +1,39 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
-from social_auth import __version__ as version
-from frontend.events.models import Event, Status
+from frontend.events.models import Event, Checkin, Status
+
 
 # Create your views here.
-@login_required
 def dashboard(request, event_id):
     """Login complete view, displays user data"""
 
-    event = Event.objects.get(id=event_id)
+    event = get_object_or_404(Event, id=event_id)
     user = request.user
     status = Status.objects.filter(user=user.id).latest('time')
 
-    ctx = {'accounts': request.user.social_auth.all(),
-           'version': version,
-           'last_login': request.session.get('social_auth_last_login_backend'),
-           'user': user,
-           'event': event,
-           'status': status,
-           }
-    return render_to_response('events/dashboard.html', ctx, RequestContext(request))
+    #TODO: Get list of users who are checked in the same event and their latest
+    #      status
+
+    # TODO: Have two different templates here: one for logged in, another one
+    #       for logged out
+    ctx = {
+        'accounts': request.user.social_auth.all(),
+        'last_login': request.session.get('social_auth_last_login_backend'),
+        'user': user,
+        'event': event,
+        'status': status,
+    }
+    return render_to_response('events/dashboard_loggedin.html', ctx, RequestContext(request))
+
+@login_required
+def checkin(request, event_id):
+    """Checks-in to the event"""
+    event = get_object_or_404(id=event_id)
+    user = request.user
+
+    checkin, created = Checkin.objects.get_or_create(event=event, user=user)
+
+    return redirect(dashboard, event_id=event_id)
+
 

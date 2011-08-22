@@ -15,15 +15,12 @@ urlpatterns = patterns('',
     url(r'', include('frontend.app.urls')),
     url(r'', include('social_auth.urls')),
 
-    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': settings.STATIC_ROOT}),
-
-    # Examples:
-    # url(r'^$', 'frontend.views.home', name='home'),
-    # url(r'^frontend/', include('frontend.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
 )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
+        url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
+    )

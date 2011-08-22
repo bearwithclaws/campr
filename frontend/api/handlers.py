@@ -1,8 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db.models import Max, F
 from piston.handler import BaseHandler
-from piston.utils import rc, require_mime, require_extended
-from piston.utils import validate
+from piston.utils import rc
 
 from frontend.events.models import Event, Status, Vote
 
@@ -23,12 +22,17 @@ class EventHandler(BaseHandler):
 
 class StatusHandler(BaseHandler):
     model = Status
-    fields = ('message', 'time', ('user', ('username', 'id')))
+    fields = ('message', 'time', ('checkin', ('user_id', )), )
 
     def read(self, request, *args, **kwargs):
         qs = self.queryset(request)
-        return qs.filter(*args, **kwargs) \
-                .annotate(last_update=Max('user__status__time')) \
+
+        if 'event_id' not in kwargs:
+            return rc.NOT_FOUND
+        event_id = kwargs['event_id']
+
+        return qs.filter(checkin__event=event_id) \
+                .annotate(last_update=Max('checkin__status__time')) \
                 .filter(time=F('last_update'))
 
     def create(self, request, event_id):
