@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
-from frontend.events.models import Event, Checkin, Status
+from frontend.events.models import Event, Checkin, Message
 
 
 # Create your views here.
@@ -10,7 +10,7 @@ def dashboard(request, event_id):
 
     event = get_object_or_404(Event, id=event_id)
     user = request.user
-    status = Status.objects.filter(user=user.id).latest('time')
+#    status = Message.objects.filter(user=user.id).latest('time')
 
     #TODO: Get list of users who are checked in the same event and their latest
     #      status

@@ -10,4 +10,10 @@ LOGIN_ERROR_URL = '/login/error/'
 #SOCIAL_AUTH_USER_MODEL = 'app.CustomUser'
 SOCIAL_AUTH_ERROR_KEY = 'socialauth_error'
 
+# RabbitMQ configurations
+RABBITMQ_CONN = {
+    'host': 'localhost'
+}
+RABBITMQ_QUEUE_NAME = 'campr-queue'
+
 # Override our own settings here

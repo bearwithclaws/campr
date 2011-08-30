@@ -1,4 +1,4 @@
-from frontend.events.models import Event, Checkin, Status
+from frontend.events.models import Event, Checkin, Message
 from django.contrib import admin
 
 class EventAdmin(admin.ModelAdmin):
@@ -6,4 +6,4 @@ class EventAdmin(admin.ModelAdmin):
 
 admin.site.register(Event, EventAdmin)
 admin.site.register(Checkin)
-admin.site.register(Status)
+admin.site.register(Message)
