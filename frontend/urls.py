@@ -12,7 +12,6 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('frontend.accounts.urls')),
     url(r'^api/', include('frontend.api.urls')),
     url(r'^events/', include('frontend.events.urls')),
-    url(r'', include('frontend.app.urls')),
     url(r'', include('social_auth.urls')),
 
 )
