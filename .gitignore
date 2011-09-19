@@ -2,3 +2,4 @@
 *.swp
 
 frontend/local_settings.py
+frontend/database.sqlite
