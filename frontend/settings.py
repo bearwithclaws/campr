@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'social_auth',
+    'frontend.accounts',
     'frontend.app',
     'frontend.events',
 )
@@ -164,6 +165,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_REDIRECT_URL = '/'
+
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 try:
     from local_settings import *
