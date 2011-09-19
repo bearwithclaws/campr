@@ -13,21 +13,22 @@
       <img src="{{ user.get_profile.profile_image_url }}" />
       <div class="bubble"><div class="top"></div><div class="speech">{{ user.get_profile.latest_message }}</div><div class="bottom"></div></div>
     </div>
+
+    <h2>Who's here?</h2>
     <ul id="attendees">
-      <h2>Who's here?</h2>
-        <li class="attendee"><img src="http://a0.twimg.com/profile_images/1370530921/9637e7905bcc4d6d8029b3006d61d2ae_7_reasonably_small.jpeg"  /><div class="bubble"><div class="top"></div><div class="speech">I'm looking for developers.</div><div class="bottom"></div></div><div class="attendee-name">@fluentspace</div><div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div></li>
-        <li class="attendee"><img src="http://a0.twimg.com/profile_images/1370530921/9637e7905bcc4d6d8029b3006d61d2ae_7_reasonably_small.jpeg"  /><div class="bubble"><div class="top"></div><div class="speech">I'm looking for developers.</div><div class="bottom"></div></div><div class="attendee-name">@fluentspace</div><div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div></li>
-        <li class="attendee"><img src="http://a0.twimg.com/profile_images/1370530921/9637e7905bcc4d6d8029b3006d61d2ae_7_reasonably_small.jpeg"  /><div class="bubble"><div class="top"></div><div class="speech">I'm looking for developers.</div><div class="bottom"></div></div><div class="attendee-name">@fluentspace</div><div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div></li>
-        <li class="attendee"><img src="http://a0.twimg.com/profile_images/1370530921/9637e7905bcc4d6d8029b3006d61d2ae_7_reasonably_small.jpeg"  /><div class="bubble"><div class="top"></div><div class="speech">I'm looking for developers.</div><div class="bottom"></div></div><div class="attendee-name">@fluentspace</div><div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div></li>
-        <li class="attendee"><img src="http://a0.twimg.com/profile_images/1370530921/9637e7905bcc4d6d8029b3006d61d2ae_7_reasonably_small.jpeg"  /><div class="bubble"><div class="top"></div><div class="speech">I'm looking for developers.</div><div class="bottom"></div></div><div class="attendee-name">@fluentspace</div><div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div></li>
-        <li class="attendee"><img src="http://a0.twimg.com/profile_images/1370530921/9637e7905bcc4d6d8029b3006d61d2ae_7_reasonably_small.jpeg"  /><div class="bubble"><div class="top"></div><div class="speech">I'm looking for developers.</div><div class="bottom"></div></div><div class="attendee-name">@fluentspace</div><div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div></li>
-        <li class="attendee"><img src="http://a0.twimg.com/profile_images/1370530921/9637e7905bcc4d6d8029b3006d61d2ae_7_reasonably_small.jpeg"  /><div class="bubble"><div class="top"></div><div class="speech">I'm looking for developers.</div><div class="bottom"></div></div><div class="attendee-name">@fluentspace</div><div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div></li>
-        <li class="attendee"><img src="http://a0.twimg.com/profile_images/1370530921/9637e7905bcc4d6d8029b3006d61d2ae_7_reasonably_small.jpeg"  /><div class="bubble"><div class="top"></div><div class="speech">I'm looking for developers.</div><div class="bottom"></div></div><div class="attendee-name">@fluentspace</div><div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div></li>
-        <li class="attendee"><img src="http://a0.twimg.com/profile_images/1370530921/9637e7905bcc4d6d8029b3006d61d2ae_7_reasonably_small.jpeg"  /><div class="bubble"><div class="top"></div><div class="speech">I'm looking for developers.</div><div class="bottom"></div></div><div class="attendee-name">@fluentspace</div><div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div></li>
-        <li class="attendee"><img src="http://a0.twimg.com/profile_images/1370530921/9637e7905bcc4d6d8029b3006d61d2ae_7_reasonably_small.jpeg"  /><div class="bubble"><div class="top"></div><div class="speech">I'm looking for developers.</div><div class="bottom"></div></div><div class="attendee-name">@fluentspace</div><div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div></li>
-        
-        
+    {% for attendee in attendees %}
+        <li class="attendee">
+          <img src="{{ attendee.get_profile.profile_image_url }}"/>
+          <div class="bubble">
+            <div class="top"></div>
+            <div class="speech">{{ attendee.get_profile.latest_message|default:"[No comment.]" }}</div>
+            <div class="bottom"></div>
+          </div>
+          <div class="attendee-name">@{{ attendee.username }}</div>
+        </li>
+      {% endfor %}
     </ul>
+
     </div>
 {% endblock %}
 

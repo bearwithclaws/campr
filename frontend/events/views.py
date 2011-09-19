@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from frontend.events.models import Event, Checkin
+from django.contrib.auth.models import User
 
 # Create your views here.
 def dashboard(request, event_id):
@@ -15,8 +16,12 @@ def dashboard(request, event_id):
 
     # TODO: Have two different templates here: one for logged in, another one
     #       for logged out
+
+    social_auth_users = request.user.social_auth.all()
+    attendees = map(lambda u: User.objects.get(id=u.user.id), social_auth_users)
+
     ctx = {
-        'accounts': request.user.social_auth.all(),
+        'attendees': attendees,
         'last_login': request.session.get('social_auth_last_login_backend'),
         'user': user,
         'event': event,
