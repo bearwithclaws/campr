@@ -3,7 +3,7 @@ from django.db.models import Max, F
 from piston.handler import BaseHandler
 from piston.utils import rc
 
-from frontend.events.models import Event, Message, Vote
+from frontend.events.models import Event, Message, Vote, Checkin
 
 class EventHandler(BaseHandler):
     model = Event
@@ -40,9 +40,8 @@ class MessageHandler(BaseHandler):
             request.data = request.POST
 
         attrs = self.flatten_dict(request.data)
-        message = Message(event=Event.objects.get(id=event_id),
-                        user=request.user,
-                        message=attrs['message'])
+        message = Message(checkin=Checkin.objects.get(user=request.user.id, event=event_id),
+                          message=attrs['message'])
         message.save()
         return message
 
