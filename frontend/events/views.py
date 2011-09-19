@@ -17,8 +17,9 @@ def dashboard(request, event_id):
     # TODO: Have two different templates here: one for logged in, another one
     #       for logged out
 
-    social_auth_users = request.user.social_auth.all()
-    attendees = map(lambda u: User.objects.get(id=u.user.id), social_auth_users)
+    checkins = Checkin.objects.filter(event=event.id)
+    attendees = map(lambda c: User.objects.get(id=c.user.id), checkins)
+
 
     ctx = {
         'attendees': attendees,
