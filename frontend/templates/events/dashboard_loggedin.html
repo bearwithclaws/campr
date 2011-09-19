@@ -5,13 +5,13 @@
     <div class="status">
       <h2>What's your status?</h2>
        <form id="update-status" action="/api/events/{{ event.id }}/messages/">
-         <textarea name="message">{{ status.message|default:"What would you like other attendees to know about yourself?" }}</textarea>
+         <textarea name="message">{{ user.get_profile.latest_message|default:"What would you like other attendees to know about yourself?" }}</textarea>
          <input class="button" type="submit" />
        </form>
     </div>
     <div class="my-status">
-      <img src="{{ profile_image_url }}" />
-      <div class="bubble"><div class="top"></div><div class="speech">{{ status.message }}</div><div class="bottom"></div></div>
+      <img src="{{ user.get_profile.profile_image_url }}" />
+      <div class="bubble"><div class="top"></div><div class="speech">{{ user.get_profile.latest_message }}</div><div class="bottom"></div></div>
     </div>
     <ul id="attendees">
       <h2>Who's here?</h2>
