@@ -34,7 +34,7 @@ def dashboard(request, event_id):
 @login_required
 def checkin(request, event_id):
     """Checks-in to the event"""
-    event = get_object_or_404(id=event_id)
+    event = get_object_or_404(Event, id=event_id)
     user = request.user
 
     checkin, created = Checkin.objects.get_or_create(event=event, user=user)
