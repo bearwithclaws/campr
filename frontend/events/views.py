@@ -10,7 +10,8 @@ def dashboard(request, event_id):
 
     event = get_object_or_404(Event, id=event_id)
     user = request.user
-#    status = Message.objects.filter(user=user.id).latest('time')
+    checkin = Checkin.objects.filter(user=user.id, event=event.id)[0]
+    status = Message.objects.filter(checkin=checkin.id).latest('time')
 
     #TODO: Get list of users who are checked in the same event and their latest
     #      status
