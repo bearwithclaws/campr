@@ -4,7 +4,7 @@
 <h1>{{ event.name }} dashboard</h1>
     <div class="status">
       <h2>What's your status?</h2>
-       <form id="update-status" action="/api/events/{{ event.id }}/statuses/">
+       <form id="update-status" action="/api/events/{{ event.id }}/messages/">
          <textarea name="message">{{ status.message|default:"What would you like other attendees to know about yourself?" }}</textarea>
          <input class="button" type="submit" />
        </form>
