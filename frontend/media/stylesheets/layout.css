@@ -61,6 +61,7 @@ h1.top-title span {
 	font-weight: bolder;
 	font-size: 24px;
 	margin-bottom: 5px;
+	clear:both;
 }
 a.twitter {
 	display: block;
