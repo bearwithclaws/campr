@@ -20,14 +20,12 @@ class ChatConnection(tornadio.SocketConnection):
 
     def on_open(self, *args, **kwargs):
         self.participants.add(self)
-        self.send("Welcome!")
 
     def on_message(self, message):
         self.send_message(message)
 
     def on_close(self):
         self.participants.remove(self)
-        self.send_message('A user has left.')
 
     def send_message(self, message):
         for p in self.participants:
@@ -136,8 +134,10 @@ class Application():
 
     def update(self, emitter):
         pika.log.info('Receiving update - send to {0} participants'.format(len(ChatConnection.participants)))
+        messages = self.message_queue.get_messages()
         for p in ChatConnection.participants:
-            p.send(' (!!) Admin sent a message')
+            for m in messages:
+                p.send('{0}'.format(m))
 
 
 if __name__ == '__main__':

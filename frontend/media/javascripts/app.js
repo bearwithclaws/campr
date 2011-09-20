@@ -48,23 +48,14 @@ $(function() {
     //     );
     //     return 'false';
     // });
-
-
-    // setTimeout("update_participants()", 3000);
 });
 
+$(function() {
+    var s = new io.Socket(window.location.hostname, {port: 8001, rememberTransport: false});
+    s.connect();
 
-// function update_participants() {
-//     var event_id = '1001';
-//     $.get(
-//         '/api/event/'+event_id+'/messages',
-//         function(response) {
-//             if (typeof response.statuses == 'Object') {
-//                 for (statu in response.statuses) {
-//                     $('#' + statu.user.username + ' .message').html(statu.message);
-//                 }
-//             }
-//         },
-//         'json',
-//     );
-// }
+    s.addEvent('message', function(data) {
+        message = JSON.parse(data)
+        $("#attendees").append("<div>" + message[0].fields.message + "</div>");
+    });
+});
