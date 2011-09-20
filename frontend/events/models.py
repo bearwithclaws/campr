@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import tweepy
 try:
     from events.signals import *
 except:
@@ -21,6 +22,14 @@ class Checkin(models.Model):
 
     def __unicode__(self):
         return "{0}: {1}".format(self.user.username, self.event.name)
+
+    def profile_image_url(self):
+        twitter_user = tweepy.api.get_user(self.user.username)
+        return twitter_user.profile_image_url.replace('_normal', '_bigger');
+
+    def latest_message(self):
+        latest_message = Message.objects.filter(checkin=self.id).latest('time')
+        return latest_message.message
 
 
 class Message(models.Model):

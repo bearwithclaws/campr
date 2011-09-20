@@ -166,8 +166,6 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_REDIRECT_URL = '/'
 
-AUTH_PROFILE_MODULE = 'accounts.UserProfile'
-
 try:
     from local_settings import *
 except:

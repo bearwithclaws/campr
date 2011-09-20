@@ -5,26 +5,26 @@
     <div class="status">
       <h2>What's your status?</h2>
        <form id="update-status" action="/api/events/{{ event.id }}/messages/">
-         <textarea name="message">{{ user.get_profile.latest_message|default:"What would you like other attendees to know about yourself?" }}</textarea>
+         <textarea name="message">{{ checkin.latest_message|default:"What would you like other attendees to know about yourself?" }}</textarea>
          <input class="button" type="submit" />
        </form>
     </div>
     <div class="my-status">
-      <img src="{{ user.get_profile.profile_image_url }}" />
-      <div class="bubble"><div class="top"></div><div class="speech">{{ user.get_profile.latest_message }}</div><div class="bottom"></div></div>
+      <img src="{{ checkin.profile_image_url }}" />
+      <div class="bubble"><div class="top"></div><div class="speech">{{ checkin.latest_message }}</div><div class="bottom"></div></div>
     </div>
 
     <h2>Who's here?</h2>
     <ul id="checkins">
-    {% for checkin in checkins %}
-        <li class="checkin" id="{{ checkin.id }}">
-          <img src="{{ checkin.user.get_profile.profile_image_url }}"/>
+    {% for c in checkins %}
+        <li class="checkin" id="{{ c.id }}">
+          <img src="{{ c.profile_image_url }}"/>
           <div class="bubble">
             <div class="top"></div>
-            <div class="speech">{{ checkin.user.get_profile.latest_message|default:"[No comment.]" }}</div>
+            <div class="speech">{{ c.latest_message|default:"[No comment.]" }}</div>
             <div class="bottom"></div>
           </div>
-          <div class="checkin-name">@{{ checkin.user.username }}</div>
+          <div class="checkin-name">@{{ c.user.username }}</div>
           {# <div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div> #}
         </li>
       {% endfor %}
