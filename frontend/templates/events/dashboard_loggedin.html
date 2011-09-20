@@ -15,16 +15,16 @@
     </div>
 
     <h2>Who's here?</h2>
-    <ul id="attendees">
-    {% for attendee in attendees %}
-        <li class="attendee">
-          <img src="{{ attendee.get_profile.profile_image_url }}"/>
+    <ul id="checkins">
+    {% for checkin in checkins %}
+        <li class="checkin" id="{{ checkin.id }}">
+          <img src="{{ checkin.user.get_profile.profile_image_url }}"/>
           <div class="bubble">
             <div class="top"></div>
-            <div class="speech">{{ attendee.get_profile.latest_message|default:"[No comment.]" }}</div>
+            <div class="speech">{{ checkin.user.get_profile.latest_message|default:"[No comment.]" }}</div>
             <div class="bottom"></div>
           </div>
-          <div class="attendee-name">@{{ attendee.username }}</div>
+          <div class="checkin-name">@{{ checkin.user.username }}</div>
           {# <div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div> #}
         </li>
       {% endfor %}

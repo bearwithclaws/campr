@@ -78,13 +78,13 @@ a.twitter:active {
 	background-position: 0 -48px;
 }
 
-ul#attendees {
+ul#checkins {
 	margin-top: 20px;
 	clear: both;
 	float: left;
 }
 
-ul#attendees li {
+ul#checkins li {
 	float: left;
 	margin-top: 60px;
 	position: relative;
@@ -92,7 +92,7 @@ ul#attendees li {
 	height: 180px;
 }
 
-ul#attendees li .attendee-name {
+ul#checkins li .checkin-name {
 	background: #398AA6;
 	position: absolute;
 	border: 1px solid #ccc;
@@ -103,7 +103,7 @@ ul#attendees li .attendee-name {
 	padding: 4px 0;
 	bottom: 32px;
 }
-ul#attendees li img {
+ul#checkins li img {
 	width: 120px;
 	height: 120px;
 	border: 1px solid #ccc;
@@ -162,7 +162,7 @@ ul#attendees li img {
 	margin-left: 10px;
 	font-size: 20px;
 }
-ul#attendees li span.bubble {
+ul#checkins li span.bubble {
 	position: absolute;
 	background: url(../images/speechbubble.png) no-repeat;
 	width: 129px;

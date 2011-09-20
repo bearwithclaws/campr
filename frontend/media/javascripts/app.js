@@ -55,7 +55,13 @@ $(function() {
     s.connect();
 
     s.addEvent('message', function(data) {
-        message = JSON.parse(data)
-        $("#attendees").append("<div>" + message[0].fields.message + "</div>");
+        messages = JSON.parse(data);
+
+        // why doesn't for..in work here?
+        for (var i=0; i < messages.length; i++) {
+            message = messages[i];
+            speech = $('#'+message.fields.checkin+' div.speech');
+            speech.hide().html(message.fields.message).fadeIn('slow');
+        }
     });
 });

@@ -18,11 +18,9 @@ def dashboard(request, event_id):
     #       for logged out
 
     checkins = Checkin.objects.filter(event=event.id)
-    attendees = map(lambda c: User.objects.get(id=c.user.id), checkins)
-
 
     ctx = {
-        'attendees': attendees,
+        'checkins': checkins,
         'last_login': request.session.get('social_auth_last_login_backend'),
         'user': user,
         'event': event,
