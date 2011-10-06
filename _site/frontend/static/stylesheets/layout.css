@@ -1,0 +1,266 @@
+body { 
+	background: #000 url(../images/bg.png) repeat-x;
+	font-family: "Lucida Grande", "Verdana", "Gargi_1.7", "Jamrul", "Garuda", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+h1.top-title {
+	font-size: 90px;
+	color: #fff;
+	text-align: center;
+	font-family: arial;
+	font-weight: bolder;
+	margin-top: 80px;
+}
+
+h1.top-title span {
+	font-size:25px;
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
+#top-bar {
+	background: #163255;
+	height: 20px;
+	margin-top: 60px;
+	border: 1px solid #163255;
+	padding: 20px 40px;
+	width: 880px;
+	color: #fff;
+}
+
+#top-bar .fl{
+	float: left;
+}
+
+#top-bar .fr {
+	float: right;
+}
+
+#top-bar a {
+	color: #37BCEA;
+	text-decoration: none;
+}
+
+#top-bar a:hover {
+	text-decoration: underline;
+}
+
+#content {
+	background: #fff;
+	border: 1px solid #f1f1f1;
+	padding: 40px;
+	width: 880px;
+	color: #000;
+	padding-top: 25px;
+}
+
+
+#content h2 {
+	font-family: arial;
+	font-weight: bolder;
+	font-size: 24px;
+	margin-bottom: 5px;
+}
+a.twitter {
+	display: block;
+	text-indent: -9999px;
+	background: url(../images/signin_twitter.png) no-repeat;
+	width: 150px;
+	height: 24px;
+}
+
+a.twitter:hover {
+	background-position: 0 -24px;
+}
+
+a.twitter:active {
+	background-position: 0 -48px;
+}
+
+ul#attendees {
+	margin-top: 20px;
+	clear: both;
+	float: left;
+}
+
+ul#attendees li {
+	float: left;
+	margin-top: 60px;
+	position: relative;
+	margin-right: 24px;
+	height: 180px;
+}
+
+ul#attendees li .attendee-name {
+	background: #398AA6;
+	position: absolute;
+	border: 1px solid #ccc;
+	border-top: 0px;
+	width: 120px;
+	color: #fff;
+	text-align: center;
+	padding: 4px 0;
+	bottom: 32px;
+}
+ul#attendees li img {
+	width: 120px;
+	height: 120px;
+	border: 1px solid #ccc;
+}
+
+
+.bubble .top{
+	background: url(../images/speechbubble_r1_c1_s1.png) no-repeat;
+	position: absolute;
+	width: 129px;
+	height: 9px;
+	top:-60px;
+}
+
+.bubble .speech {
+	top: -51px;
+	width: 110px;
+	padding-right: 3px;
+	background: url(../images/speechbubble_r2_c1_s1.png) repeat-y;
+	position: absolute;
+	padding-left: 13px;
+}
+
+.bubble .bottom{
+	background: url(../images/speechbubble_r3_c1_s1.png) no-repeat;
+	position: absolute;
+	width: 129px;
+	height: 30px;
+	top:-15px;
+}
+
+.vote {
+	position: absolute;
+	bottom: 0px;
+	
+}
+
+.vote a.thumbs-up {
+	display: block;
+	float: left;
+	width: 35px;
+	background: url(../images/thumbs-up.png) no-repeat;
+	text-indent: -9999px;
+	height: 30px;
+}
+
+.vote a.thumbs-up:hover {
+	background-position: 0 -38px;
+}
+
+.vote span {
+	color: #97C93B;
+	float: left;
+	display: block;
+	margin-top: 8px;
+	margin-left: 10px;
+	font-size: 20px;
+}
+ul#attendees li span.bubble {
+	position: absolute;
+	background: url(../images/speechbubble.png) no-repeat;
+	width: 129px;
+	height: 60px;
+	top: -43px;
+	left: -3px;
+	padding-left: 15px;
+	padding-top: 10px;
+}
+
+.status textarea {
+	border: 2px solid #ccc;
+	font-size: 16px;
+	color: #000;
+	padding: 10px;
+	width: 450px;
+	margin-bottom: 10px;
+}
+
+.status {
+	text-align: right;
+	width: 475px;
+	float: left;
+}
+
+.status h2 {
+	text-align: left;
+}
+
+.status input.button{
+	font-size: 16px;
+}
+.my-status {
+	float: right;
+	width: 370px;
+	margin-top: 50px;
+	position: relative;
+}
+
+.my-status .bubble {
+	position: absolute;
+	bottom: 100px;
+	left: 100px;
+}
+
+.my-status .bubble .bottom {
+	top: -9px;
+}
+.my-status img {
+	border:1px solid #ccc
+}
+
+
+/* #Site Styles
+================================================== */
+
+/* #Page Styles
+================================================== */
+
+/* #Media Queries
+================================================== */
+	
+	/* iPad Portrait/Browser */
+	@media only screen and (min-width: 768px) and (max-width: 991px) {}
+	
+	/* Mobile/Browser */
+	@media only screen and (max-width: 767px) {}
+	
+	/* Mobile Landscape/Browser */
+	@media only screen and (min-width: 480px) and (max-width: 767px) {}
+	
+	/* Anything smaller than standard 960 */
+	@media only screen and (max-width: 959px) {}
+	
+	/* iPad Portrait Only */
+	@media only screen and (min-width: 768px) and (max-width: 991px) and (max-device-width: 1000px) {}
+	
+	/* Mobile Only */
+	@media only screen and (max-width: 767px) and (max-device-width: 1000px) {}
+	
+	/* Mobile Landscape Only */
+	@media only screen and (min-width: 480px) and (max-width: 767px) and (max-device-width: 1000px) {}
+	
+
+/* #Font-Face
+================================================== */
+/* 	This is the proper syntax for an @font-face file 
+		Just create a "fonts" folder at the root, 
+		copy your FontName into code below and remove
+		comment brackets */
+		
+/*	@font-face {
+	    font-family: 'FontName';
+	    src: url('../fonts/FontName.eot');
+	    src: url('../fonts/FontName.eot?iefix') format('eot'),
+	         url('../fonts/FontName.woff') format('woff'),
+	         url('../fonts/FontName.ttf') format('truetype'),
+	         url('../fonts/FontName.svg#webfontZam02nTh') format('svg');
+	    font-weight: normal;
+	    font-style: normal; }
+*/
