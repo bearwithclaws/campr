@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-<style type="text/css">
-h1.top-title, .fr { display: none; }
-</style>
-<h2>Meet like-minded people at events.</h2>
-<p>Campr is a simple event attendees status board, where you get to see all the attendees and
-their status update in real time.</p>
-<p>Also...don’t forget to give a thumbs up if someone has helped you out in some way!</p>
-<p>To start, just sign in with your Twitter account.</p>
-<h3>Events in progress right now:</h3>
+  <div class="container">
+  <a id="logo" href="/">Campr</a>
+  <div id="tagline">
+    <h1>People Powered <br />Event Dashboard</h1>
+    <p>The missing piece of the event experience: <br />knowing who were there and what was on their mind.</p>
+    <a href="#" class="button">Join Early Beta</a>
+  </div>
+</div>
+{% comment %}
 {% for event in events %}
     <p><a href="/events/{{ event.id }}/checkin">{{ event.name }}</a></p>
 {% endfor %}
+{% endcomment %}
 {% endblock %}

@@ -1,36 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ event.name }} dashboard</h1>
-    <div class="status">
-      <h2>What's your status?</h2>
-       <form id="update-status" action="/api/events/{{ event.id }}/messages/">
-         <textarea name="message">{{ checkin.latest_message|default:"What would you like other attendees to know about yourself?" }}</textarea>
-         <input class="button" type="submit" />
-       </form>
-    </div>
-    <div class="my-status">
-      <img src="{{ checkin.profile_image_url }}" />
-      <div class="bubble"><div class="top"></div><div class="speech">{{ checkin.latest_message }}</div><div class="bottom"></div></div>
-    </div>
 
-    <h2>Who's here?</h2>
-    <ul id="checkins">
-    {% for c in checkins %}
-        <li class="checkin" id="{{ c.id }}">
-          <img src="{{ c.profile_image_url }}"/>
-          <div class="bubble">
-            <div class="top"></div>
-            <div class="speech">{{ c.latest_message|default:"[No comment.]" }}</div>
-            <div class="bottom"></div>
+<div id="event-header">
+  <h1>{{ event.name }}</h1>
+  <p>{{ event.description|default:"Event description here." }}</p>
+  <a id="logo-power" href="/">Campr</a>
+  <div class="clear"></div>
+</div>
+
+<div id="focus">
+  <ul id="checkins">
+  {% for c in checkins %}
+    <li class="checkin" id="{{ c.id }}">
+    <img src="{{ c.profile_image_url }}"/>
+    <div class="checkin-name"><a href="http://twitter.com/{{ c.user.username }}">@{{ c.user.username }}</a></div>
+    <div class="twipsy-wrapper">
+      <div class="twipsy right">
+        <div class="twipsy-arrow"></div>
+          <div class="twipsy-inner">
+            {{ c.latest_message|default:"[No comment.]" }}
           </div>
-          <div class="checkin-name">@{{ c.user.username }}</div>
-          {# <div class="vote"><a href="/" class="thumbs-up">Thumbs Up</a><span>8</span></div> #}
-        </li>
-      {% endfor %}
-    </ul>
+        </div>
+      </div>
+  {% endfor %}
+  </ul>
+  <div class="clear"></div>
+</div>
 
-    </div>
+<div id="my-status">
+  <h2>{{ checkin.user.username }}, what's on your mind right now?</h2>
+  <img src="{{ checkin.profile_image_url }}" />
+  <form id="update-status" action="/api/events/{{ event.id }}/messages/">
+    <textarea name="message">{{ checkin.latest_message|default:"I could really use a massage right now." }}</textarea>
+    <input class="button" type="submit" value="Update" />
+  </form>
+</div>
+
 {% endblock %}
-
-

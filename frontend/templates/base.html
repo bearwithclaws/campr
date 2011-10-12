@@ -27,25 +27,15 @@
 	
 	<!-- Favicons
 	================================================== -->
-	<link rel="shortcut icon" href="{{ MEDIA_URL }}images/favicon.ico">
-	<link rel="apple-touch-icon" href="{{ MEDIA_URL }}images/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="{{ MEDIA_URL }}images/apple-touch-icon-72x72.png" />
-	<link rel="apple-touch-icon" sizes="114x114" href="{{ MEDIA_URL }}images/apple-touch-icon-114x114.png" />
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png" />
 	
 </head>
 <body>
-<div id="header">
-  <h1 class="top-title">{{ event.name }}</h1>
-</div>
-<div id="top-bar" class="container">
-  <div class="fl"><a href="/" class="logo"><img src="{{ MEDIA_URL }}images/powered-by.png" /></a></div>
-  {% if checkin.user.username %}
-  <div class="fr">Welcome @{{ checkin.user.username }} <a href="/accounts/logout">(Sign Out)</a></div>
-  {% endif %}
-</div>
-<div id="content" class="container">
     {% block content %}{% endblock %}
-</div>
+
 	<!-- JS
 	================================================== -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
