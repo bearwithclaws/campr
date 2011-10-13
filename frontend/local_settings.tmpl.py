@@ -16,4 +16,13 @@ RABBITMQ_CONN = {
 }
 RABBITMQ_QUEUE_NAME = 'campr-queue'
 
-# Override our own settings here
+# Override our own settings here, the bare minimum you'll need to specify the
+# following
+DATABASES = {
+    'default': { }
+}
+MEDIA_ROOT = ''
+STATIC_ROOT = ''
+STATICFILES_DIRS = ()
+SECRET_KEY = ''
+TEMPLATE_DIRS = ()
