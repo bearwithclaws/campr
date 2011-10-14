@@ -13,8 +13,12 @@ def dashboard(request, event_id=None, slug=''):
     else:
         event = get_object_or_404(Event, slug=slug)
     user = request.user
-#    checkin = Checkin.objects.get(event=event.id, user=user.id)
-#    checkins = Checkin.objects.filter(event=event.id)
+    checkins = Checkin.objects.filter(event=event.id)
+    try:
+        checkin = Checkin.objects.get(event=event.id, user=user.id)
+    except Checkin.DoesNotExist:
+        checkin = None
+
 
     #TODO: Get list of users who are checked in the same event and their latest
     #      status
@@ -25,7 +29,7 @@ def dashboard(request, event_id=None, slug=''):
     ctx = {
         'event': event,
 #        'checkin': checkin,
-#        'checkins': checkins,
+        'checkins': checkins,
         'last_login': request.session.get('social_auth_last_login_backend'),
     }
     return render_to_response('events/dashboard_loggedin.html', ctx, RequestContext(request))
