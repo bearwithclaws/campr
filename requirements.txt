@@ -1,12 +1,12 @@
 Django==1.3
 TornadIO==0.0.4
--e hg+ssh://hg@bitbucket.org/jespern/django-piston@c4b2d21db51a531b069dd7f0d7fc10996c9c70c8#egg=django_piston-tip
+django-debug-toolbar==0.8.5
+-e hg+ssh://hg@bitbucket.org/jespern/django-piston@c4b2d21db51a531b069dd7f0d7fc10996c9c70c8#egg=django_piston-dev
 django-social-auth==0.5.13
 httplib2==0.7.1
--e git+git@github.com:felixleong/python-oauth2.git@1fcc1a6d49a7be2a9394125acf5b1c2227fcde79#egg=oauth2-1.5.170-py2.7-dev
+-e git+git@github.com:felixleong/python-oauth2.git@1fcc1a6d49a7be2a9394125acf5b1c2227fcde79#egg=oauth2-dev
 pika==0.9.5
 python-openid==2.2.5
 simplejson==2.1.6
 tornado==2.0
-wsgiref==0.1.2
 tweepy==1.7.1
