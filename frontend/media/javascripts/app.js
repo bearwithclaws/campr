@@ -8,7 +8,7 @@ $(function() {
             form.serialize(),
             function(response) {
                 if (response.message) {
-                    $('#' + response.id + ' .twipsy-inner').html(response.message);
+                    $('#' + response.checkin.user_id + ' .twipsy-inner').html(response.message);
                 }
             },
             'json'
