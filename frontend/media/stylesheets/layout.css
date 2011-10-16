@@ -23,6 +23,7 @@ a#logo-power {
   height: 50px;
   display: block;
   text-indent: -9999px;
+  float: right;
 }
 
 /* Homepage */
@@ -112,18 +113,22 @@ li.checkin img {
 /* My Status */
 #my-status {
 	padding: 0 30px;
+	position: relative;
 }
 
 a.logout {
   float: right;
+  position: absolute;
+  top: -30px;
+  right: 35px;
   display: block;
   background: #fff;
-  margin-top: -25px;
   padding: 5px 15px;
   -moz-border-radius: .5em;
   -webkit-border-radius: .5em;
   border-radius: .5em;
   font-size: 12px;
+  margin-bottom: 20px;
 }
 
 #my-status img {
@@ -137,6 +142,7 @@ a.logout {
 	font-size: 20px;
 	margin-top: 0;
 	padding-top: 0;
+	line-height: 1.2em;
 }
 
 #my-status textarea {
@@ -163,6 +169,12 @@ a.logout {
 	#my-status img {
 	display: none;
 }
+  a.logout {
+    position: static;
+    float: left;
+    margin-top: 17px;
+    background: transparent;
+  }
 	}
 	
 	/* Mobile Landscape/Browser */
@@ -451,7 +463,7 @@ twipsy {
   background-color: #000000;
   color: white;
   text-align: center;
-  max-width: 200px;
+  max-width: 160px;
   text-decoration: none;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
