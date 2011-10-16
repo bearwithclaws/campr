@@ -4,6 +4,7 @@ from django.contrib.auth import logout as auth_logout
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from social_auth import __version__ as version
+from frontend.events.models import Checkin
 
 # Create your views here.
 def login(request):
@@ -21,5 +22,10 @@ def error(request):
 
 def logout(request):
     """Logs out user"""
+    checkins = Checkin.objects.filter(user=request.user.id)
+    for checkin in checkins:
+        checkin.present = False
+        checkin.save()
+
     auth_logout(request)
     return HttpResponseRedirect('/')
