@@ -8,7 +8,8 @@ except:
 
 
 class Event(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=250)
     slug = models.SlugField()
 
     def __unicode__(self):
