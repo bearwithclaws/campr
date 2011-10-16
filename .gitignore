@@ -11,5 +11,3 @@ bin/
 include/
 lib/
 build/
-
-frontend/local_settings.py
