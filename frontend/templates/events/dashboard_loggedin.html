@@ -30,10 +30,10 @@
 
 <div id="my-status">
   <a class="logout" href="#">Logout &raquo;</a>
-  <h2>{{ checkin.user.username }}, what's on your mind right now?</h2>
+  <h2>Hey @{{ checkin.user.username }}, what's on your mind?</h2>
   <img src="{{ checkin.profile_image_url }}" />
   <form id="update-status" action="/api/events/{{ event.id }}/messages/">
-    <textarea name="message">{{ checkin.latest_message|default:"I could really use a massage right now." }}</textarea>
+    <textarea name="message" placeholder="e.g. I'm looking for a web developer."></textarea>
     <input class="button" type="submit" value="Update" />
   </form>
 </div>
