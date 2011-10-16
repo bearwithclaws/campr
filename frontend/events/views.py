@@ -28,7 +28,7 @@ def dashboard(request, event_id=None, slug=''):
 
     ctx = {
         'event': event,
-#        'checkin': checkin,
+        'checkin': checkin,
         'checkins': checkins,
         'last_login': request.session.get('social_auth_last_login_backend'),
     }

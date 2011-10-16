@@ -1,25 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ event.name }} dashboard</h1>
-{% comment %}
-TODO: Detect the following cases:
-1) show Checkin with Twitter if no users is logged in users;
-2) show Checkin button with image by the side if the user has logged into Campr
-    but haven't checked into event (or should we just check them in w/o asking
-3) Show the message box if the user is logged in and checked in
-{% endcomment %}
-    <div class="status">
-      <h2>What's your status?</h2>
-       <form id="update-status" action="/api/events/{{ event.id }}/messages/">
-         <textarea name="message">{{ checkin.latest_message|default:"What would you like other attendees to know about yourself?" }}</textarea>
-         <input class="button" type="submit" />
-       </form>
-    </div>
-    <div class="my-status">
-      <img src="{{ checkin.profile_image_url }}" />
-      <div class="bubble"><div class="top"></div><div class="speech">{{ checkin.latest_message }}</div><div class="bottom"></div></div>
-    </div>
 
 <div id="event-header">
   <h1>{{ event.name }}</h1>
