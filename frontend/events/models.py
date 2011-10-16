@@ -20,6 +20,7 @@ class Checkin(models.Model):
     event = models.ForeignKey(Event)
     user = models.ForeignKey(User)
     time = models.DateTimeField(auto_now_add=True)
+    present = models.BooleanField(default=True)
 
     def __unicode__(self):
         return "{0}: {1}".format(self.user.username, self.event.name)
