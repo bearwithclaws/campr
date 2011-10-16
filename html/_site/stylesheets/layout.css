@@ -114,6 +114,18 @@ li.attendee img {
 	padding: 0 30px;
 }
 
+a.logout {
+  float: right;
+  display: block;
+  background: #fff;
+  margin-top: -25px;
+  padding: 5px 15px;
+  -moz-border-radius: .5em;
+  -webkit-border-radius: .5em;
+  border-radius: .5em;
+  font-size: 12px;
+}
+
 #my-status img {
 	float: left;
 	width: 75px;
