@@ -1,7 +1,13 @@
 *.pyc
 *.swp
+.DS_Store
 
-frontend/local_settings.py
 frontend/database.sqlite
 static/
 uploads/
+
+.Python
+bin/
+include/
+lib/
+build/
