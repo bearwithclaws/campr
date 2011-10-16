@@ -29,6 +29,7 @@
 </div>
 
 <div id="my-status">
+  <a class="logout" href="#">Logout &raquo;</a>
   <h2>{{ checkin.user.username }}, what's on your mind right now?</h2>
   <img src="{{ checkin.profile_image_url }}" />
   <form id="update-status" action="/api/events/{{ event.id }}/messages/">
