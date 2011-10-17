@@ -19,7 +19,9 @@ RABBITMQ_QUEUE_NAME = 'campr-queue'
 
 MEDIA_ROOT = os.path.dirname(__file__) + '/media'
 
-STATIC_ROOT = os.path.dirname(__file__) + '/static'
+STATIC_ROOT = os.path.dirname(__file__) + '/../static'
+
+STATICFILES_DIRS = (os.path.dirname(__file__) + '/static/', )
 
 SECRET_KEY = '^yxvp7d%ek)&!j7s$o4j0mm)@b1+o356l^#s-p9^7cdy$mun4m'
 
