@@ -11,7 +11,7 @@
 <div id="focus">
   <ul id="checkins">
   {% for c in checkins %}
-    <li class="checkin" id="{{ c.user.id }}">
+    <li class="checkin" id="{{ c.id }}">
     <img src="{{ c.profile_image_url }}"/>
     <div class="checkin-name"><a href="http://twitter.com/{{ c.user.username }}">@{{ c.user.username }}</a></div>
     <div class="twipsy-wrapper">
