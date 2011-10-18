@@ -16,13 +16,31 @@ $(function() {
     s.connect();
 
     s.addEvent('message', function(data) {
-        messages = JSON.parse(data);
+        var message = JSON.parse(data);
 
-        // why doesn't for..in work here?
-        for (var i=0; i < messages.length; i++) {
-            message = messages[i];
-            bubble = $('#'+message.fields.checkin+' div.twipsy-inner');
-            bubble.hide().html(message.fields.message).fadeIn('slow');
+        if (message.status) {
+            bubble = $('#'+message.status.checkin_id+' div.twipsy-inner');
+            bubble.hide().html(message.status.message).fadeIn('slow');
         }
+        else if (message.checkin) {
+            var checkin = message.checkin;
+            if (checkin.present) {
+                var $checkins = $('#checkins');
+
+                var $new_checkin = $checkins.find('.checkin').first().clone();
+                $new_checkin.hide();
+                $new_checkin.attr('id', checkin.id);
+                $new_checkin.find('img').attr('src', checkin.profile_image_url);
+                $new_checkin.find('.checkin-name a').attr('href', 'http://twitter.com/'+checkin.username).html('@'+checkin.username);
+                $new_checkin.find('div.twipsy-inner').html(checkin.latest_message);
+
+                $new_checkin.appendTo($checkins).show('slow');
+            }
+            else {
+                var $checkin = $('#'+checkin.id);
+                $checkin.hide('slow', function() { $checkin.remove(); });
+            }
+        }
+
     });
 });
