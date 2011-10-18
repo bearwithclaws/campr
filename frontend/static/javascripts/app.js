@@ -5,11 +5,6 @@ $(function() {
         $.post(
             form.attr('action'),
             form.serialize(),
-            function(response) {
-                if (response.message) {
-                    $('#' + response.checkin.user_id + ' .twipsy-inner').html(response.message);
-                }
-            },
             'json'
         );
         return false;
