@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.core import serializers
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import pika
@@ -16,8 +15,14 @@ def publish(data):
     connection.close()
 
 @receiver(post_save, sender=Message)
-def on_message_received(sender, instance, created, **kwargs):
-    publish(serializers.serialize('json', [instance]))
+def on_status_received(sender, instance, created, **kwargs):
+    status_info = {
+        'status': {
+            'checkin_id': instance.checkin.id,
+            'message':    instance.message,
+        },
+    }
+    publish(simplejson.dumps(status_info))
 
 @receiver(post_save, sender=Checkin)
 def on_checkin_received(sender, instance, created, **kwargs):
