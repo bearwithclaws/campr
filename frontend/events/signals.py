@@ -3,7 +3,7 @@ from django.core import serializers
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import pika
-from events.models import Message, Vote
+from events.models import Message
 
 @receiver(post_save, sender=Message)
 def on_status_received(sender, instance, created, **kwargs):
@@ -16,6 +16,3 @@ def on_status_received(sender, instance, created, **kwargs):
     print ' [x] Data sent to queue: {0}'.format(data)
     connection.close()
 
-@receiver(post_save, sender=Vote)
-def on_vote_received(sender, instance, created, **kwargs):
-    print ' [x] Vote received'
