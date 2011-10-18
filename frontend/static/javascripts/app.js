@@ -1,5 +1,4 @@
 $(function() {
-
     $('#update-status').submit(function() {
         var form = $(this);
         var status_message = form.find('textarea[name=message]').val();
@@ -15,23 +14,6 @@ $(function() {
         );
         return false;
     });
-
-    // $('.vote').click(function() {
-    //     var link = $(this);
-    //     var url_components = link.attr('href').split('?');
-    //     $.post(
-    //         url_components[0],
-    //         url_components[1],
-    //         function(response) {
-    //             if (response.status === 'success') {
-    //                 link.hide();
-    //                 link.siblings('.voted').show();
-    //             }
-    //         },
-    //         'json'
-    //     );
-    //     return 'false';
-    // });
 });
 
 $(function() {
