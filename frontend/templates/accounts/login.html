@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Login</h1>
-<p>
-<a href="/login/twitter?next={{ next }}">Login via Twitter</a>
-</p>
+  <div class="container">
+  <div id="event-main">
+    <h1>{{ event.name }}</h1>
+    <p>{{ event.description }}</p>
+  </div>
+</div>
+
+<div id="focus">
+  <div class="container">
+    <a class="button tw" href="/login/twitter?next={{ next }}">Sign in with Twitter</a>
+  </div>
+</div>
+
+<div class="container">
+  <a id="logo-power" href="/">Campr</a>
+</div>
 {% endblock %}
 
