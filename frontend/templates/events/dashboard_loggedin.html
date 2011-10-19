@@ -33,6 +33,7 @@
   <form id="update-status" action="/api/events/{{ event.id }}/messages/">
     <textarea name="message" placeholder="{{ checkin.latest_message|default:"e.g. I'm looking for a web developer." }}"></textarea>
     <input class="button" type="submit" value="Update" />
+    <input type="hidden" name="checkin_id" value="{{ checkin.id }}"/>
   </form>
   <a id="logo-power" href="/">Campr</a>
   <a class="logout" href="/accounts/logout/">Logout &raquo;</a>

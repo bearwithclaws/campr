@@ -27,18 +27,27 @@ $(function() {
             if (checkin.present) {
                 var $checkins = $('#checkins');
 
-                var $new_checkin = $checkins.find('.checkin').first().clone();
-                $new_checkin.hide();
-                $new_checkin.attr('id', checkin.id);
-                $new_checkin.find('img').attr('src', checkin.profile_image_url);
-                $new_checkin.find('.checkin-name a').attr('href', 'http://twitter.com/'+checkin.username).html('@'+checkin.username);
-                $new_checkin.find('div.twipsy-inner').html(checkin.latest_message);
+                // Only add checkin to page if not already there
+                if (!checkins.find('#'+checkin.id).size()) {
+                    var $new_checkin = $checkins.find('.checkin').first().clone();
+                    $new_checkin.hide();
+                    $new_checkin.attr('id', checkin.id);
+                    $new_checkin.find('img').attr('src', checkin.profile_image_url);
+                    $new_checkin.find('.checkin-name a').attr('href', 'http://twitter.com/'+checkin.username).html('@'+checkin.username);
+                    $new_checkin.find('div.twipsy-inner').html(checkin.latest_message);
 
-                $new_checkin.appendTo($checkins).show('slow');
+                    $new_checkin.appendTo($checkins).show('slow');
+                }
             }
             else {
                 var $checkin = $('#'+checkin.id);
                 $checkin.hide('slow', function() { $checkin.remove(); });
+
+                // If user logged out from another location!
+                if (checkin.id == $('#update-status input[name="checkin_id"]').val()) {
+                    // window.location.href($('a.logout').first().attr('href'));
+                    $('a.logout').first().attr('href').click();
+                }
             }
         }
 
