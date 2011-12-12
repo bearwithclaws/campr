@@ -4,13 +4,26 @@ from django.contrib.auth import logout as auth_logout
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from social_auth import __version__ as version
+from frontend.events.models import Checkin, Event
+from django.shortcuts import get_object_or_404
+import re
 
 # Create your views here.
 def login(request):
     """Logs in user"""
+
     nextParam = request.GET.get('next', '')
+    ctx = { 'next': nextParam }
+
+    # Ugh! Must be a better way...
+    # Looking for string of form: '/events/1/checkin'
+    matched = re.search( r'events/(\d+)/', nextParam )
+    if matched.group(1).isdigit():
+        event_id = int(matched.group(1))
+        ctx['event'] = get_object_or_404(Event, id=event_id)
+
     return render_to_response('accounts/login.html',
-        {'next': nextParam}, RequestContext(request))
+        ctx, RequestContext(request))
 
 def error(request):
     """Error view"""
@@ -21,5 +34,10 @@ def error(request):
 
 def logout(request):
     """Logs out user"""
+    checkins = Checkin.objects.filter(user=request.user.id)
+    for checkin in checkins:
+        checkin.present = False
+        checkin.save()
+
     auth_logout(request)
     return HttpResponseRedirect('/')

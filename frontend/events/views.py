@@ -13,9 +13,9 @@ def dashboard(request, event_id=None, slug=''):
     else:
         event = get_object_or_404(Event, slug=slug)
     user = request.user
-    checkins = Checkin.objects.filter(event=event.id)
+    checkins = Checkin.objects.filter(event=event.id, present=True)
     try:
-        checkin = Checkin.objects.get(event=event.id, user=user.id)
+        checkin = Checkin.objects.get(event=event.id, user=user.id, present=True)
     except Checkin.DoesNotExist:
         checkin = None
 
@@ -44,5 +44,8 @@ def checkin(request, event_id, slug=''):
     user = request.user
 
     checkin, created = Checkin.objects.get_or_create(event=event, user=user)
+    if (not created):
+        checkin.present = True
+        checkin.save()
 
     return redirect(dashboard, event_id=event_id)

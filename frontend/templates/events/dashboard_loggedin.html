@@ -11,14 +11,14 @@
 <div id="focus">
   <ul id="checkins">
   {% for c in checkins %}
-    <li class="checkin" id="{{ c.user.id }}">
+    <li class="checkin" id="{{ c.id }}">
     <img src="{{ c.profile_image_url }}"/>
     <div class="checkin-name"><a href="http://twitter.com/{{ c.user.username }}">@{{ c.user.username }}</a></div>
     <div class="twipsy-wrapper">
       <div class="twipsy right">
         <div class="twipsy-arrow"></div>
           <div class="twipsy-inner">
-            {{ c.latest_message|default:"Well, I haven't update my status yet." }}
+            {{ c.latest_message }}
           </div>
         </div>
       </div>
@@ -33,9 +33,10 @@
   <form id="update-status" action="/api/events/{{ event.id }}/messages/">
     <textarea name="message" placeholder="{{ checkin.latest_message|default:"e.g. I'm looking for a web developer." }}"></textarea>
     <input class="button" type="submit" value="Update" />
+    <input type="hidden" name="checkin_id" value="{{ checkin.id }}"/>
   </form>
   <a id="logo-power" href="/">Campr</a>
-  <a class="logout" href="#">Logout &raquo;</a>
+  <a class="logout" href="/accounts/logout/">Logout &raquo;</a>
 </div>
 
 {% endblock %}
