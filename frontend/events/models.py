@@ -31,7 +31,7 @@ class Checkin(models.Model):
 
     def latest_message(self):
         latest_message = Message.objects.filter(checkin=self.id).latest('time')
-        return latest_message.message
+        return latest_message.message or "Well, I haven't update my status yet."
 
 
 class Message(models.Model):
