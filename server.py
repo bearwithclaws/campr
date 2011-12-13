@@ -20,7 +20,7 @@ def main(port):
     tornado_app = tornado.web.Application(
         [
             (r'/', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
-            (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': op.join(ROOT, 'frontend/static')}),
+            (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': op.join(ROOT, 'static')}),
             ChatRouter.route(),
             (r'.*', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
         ],
