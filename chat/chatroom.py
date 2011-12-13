@@ -140,6 +140,22 @@ class Application():
                 p.send('{0}'.format(m))
 
 
+
+
+#use the routes classmethod to build the correct resource
+ChatRouter = tornadio.get_router(ChatConnection, {
+    'enabled_protocols': [
+        'websocket',
+        'flashsocket',
+        'xhr-multipart',
+        'xhr-polling'
+    ]
+})
+
+
+
+
+
 if __name__ == '__main__':
     pika.log.setup(color=True)
 
