@@ -30,8 +30,11 @@ class Checkin(models.Model):
         return twitter_user.profile_image_url.replace('_normal', '_bigger');
 
     def latest_message(self):
-        latest_message = Message.objects.filter(checkin=self.id).latest('time')
-        return latest_message.message or "Well, I haven't update my status yet."
+        try:
+            latest_message = Message.objects.filter(checkin=self.id).latest('time').message
+        except Message.DoesNotExist:
+            latest_message = "Well, I haven't updated my status yet."
+        return latest_message
 
 
 class Message(models.Model):
