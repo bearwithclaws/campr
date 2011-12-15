@@ -93,7 +93,7 @@ class PikaClient(Observable):
 
 
 class Application():
-    def __init__(self):
+    def __init__(self, port):
         settings = {
             'debug': True,
             'enabled_protocols': ['websocket',
@@ -102,7 +102,7 @@ class Application():
                                     'xhr-polling'],
             'flash_policy_port': 843,
             'flash_policy_file': op.join(ROOT, 'flashpolicy.xml'),
-            'socket_io_port': 8001
+            'socket_io_port': port
         }
 
         wsgi_app = tornado.wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())

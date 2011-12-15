@@ -17,7 +17,7 @@ def main(port):
     os.environ['DJANGO_SETTINGS_MODULE'] = 'frontend.settings'
 
     # Tornadio app part
-    app = Application()
+    app = Application(port)
     # Cleanup code
     def shutdown(sig, frame):
         app.stop()
