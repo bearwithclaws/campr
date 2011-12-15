@@ -1,18 +1,17 @@
 #! /usr/bin/env python
 from os import path as op
 import signal
-
 import pika
 from pika.adapters.tornado_connection import TornadoConnection
-import tornado.httpserver
 import tornado.ioloop
 import tornado.web
 import tornadio
 import tornadio.router
 import tornadio.server
 from lib.observer import Observable
+import django.core.handlers.wsgi
 
-ROOT = op.normpath(op.dirname(__file__))
+ROOT = op.normpath(op.join(op.dirname(__file__), '../'))
 
 class ChatConnection(tornadio.SocketConnection):
     # Class level variable
@@ -93,11 +92,6 @@ class PikaClient(Observable):
         return output
 
 
-class MainHandler(tornado.web.RequestHandler):
-    @tornado.web.asynchronous
-    def get(self):
-        self.render('index.html')
-
 class Application():
     def __init__(self):
         settings = {
@@ -110,14 +104,20 @@ class Application():
             'flash_policy_file': op.join(ROOT, 'flashpolicy.xml'),
             'socket_io_port': 8001
         }
-        chat_router = tornadio.get_router(ChatConnection)
+
+        wsgi_app = tornado.wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
         self.application = tornado.web.Application([
-                (r'/', MainHandler),
-                chat_router.route()
-        ], **settings)
+                (r'/', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
+                (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': op.join(ROOT, 'static')}),
+                tornadio.get_router(ChatConnection).route(),
+                (r'.*', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
+            ], **settings)
+
         self.message_queue = PikaClient('hello')
         self.message_queue.attach(self)
         self.server = None
+
+        pika.log.setup(color=True)
 
     def start(self):
         pika.log.info('Queue Pika to load')
@@ -138,36 +138,3 @@ class Application():
         for p in ChatConnection.participants:
             for m in messages:
                 p.send('{0}'.format(m))
-
-
-
-
-#use the routes classmethod to build the correct resource
-ChatRouter = tornadio.get_router(ChatConnection, {
-    'enabled_protocols': [
-        'websocket',
-        'flashsocket',
-        'xhr-multipart',
-        'xhr-polling'
-    ]
-})
-
-
-
-
-
-if __name__ == '__main__':
-    pika.log.setup(color=True)
-
-    app = Application()
-
-    # Cleanup code
-    def shutdown(sig, frame):
-        app.stop()
-    signal.signal(signal.SIGABRT, shutdown)
-
-    # Once we have that, we'll start the server
-    try:
-        app.start()
-    except KeyboardInterrupt:
-        app.stop()

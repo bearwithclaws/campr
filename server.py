@@ -2,13 +2,13 @@
 
 import os
 import os.path as op
-#import tornado.httpserver
+import signal
 import tornado.ioloop
 import tornado.wsgi
 import tornadio.server
 import sys
 import django.core.handlers.wsgi
-from chat.chatroom import ChatRouter
+from chat.chatroom import Application
 
 ROOT = op.normpath(op.dirname(__file__))
 def main(port):
@@ -16,22 +16,17 @@ def main(port):
     sys.path.append(op.join(ROOT, 'frontend'))
     os.environ['DJANGO_SETTINGS_MODULE'] = 'frontend.settings'
 
-    wsgi_app = tornado.wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
-    tornado_app = tornado.web.Application(
-        [
-            (r'/', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
-            (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': op.join(ROOT, 'static')}),
-            ChatRouter.route(),
-            (r'.*', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
-        ],
-        flash_policy_port = 843,
-        flash_policy_file = op.join(ROOT, 'flashpolicy.xml'),
-        socket_io_port=port
-    )
-
-    io_loop = tornado.ioloop.IOLoop.instance()
-    tornadio.server.SocketServer(tornado_app, io_loop=io_loop)
-    io_loop.start()
+    # Tornadio app part
+    app = Application()
+    # Cleanup code
+    def shutdown(sig, frame):
+        app.stop()
+    signal.signal(signal.SIGABRT, shutdown)
+    # Once we have that, we'll start the server
+    try:
+        app.start()
+    except KeyboardInterrupt:
+        app.stop()
 
 
 if __name__ == "__main__":
