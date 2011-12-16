@@ -108,7 +108,7 @@ class Application():
         wsgi_app = tornado.wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
         self.application = tornado.web.Application([
                 (r'/', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
-                (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': op.join(ROOT, 'static')}),
+                (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': op.join(ROOT, 'frontend/static')}),
                 tornadio.get_router(ChatConnection).route(),
                 (r'.*', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
             ], **settings)
