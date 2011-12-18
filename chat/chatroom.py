@@ -10,6 +10,7 @@ import tornadio.router
 import tornadio.server
 from lib.observer import Observable
 import django.core.handlers.wsgi
+from urlparse import urlparse
 
 ROOT = op.normpath(op.join(op.dirname(__file__), '../'))
 
@@ -32,10 +33,13 @@ class ChatConnection(tornadio.SocketConnection):
 
 
 class PikaClient(Observable):
-    def __init__(self, queue_name):
+    def __init__(self, queue_name, rabbitmq_url):
         Observable.__init__(self)
 
         self.queue_name = queue_name
+
+        # amqp://uname:pwd@host.heroku.srs.rabbitmq.com:13029/vhost
+        self.rabbitmq_url = urlparse(rabbitmq_url)
 
         # States
         self.connected = False
@@ -55,9 +59,19 @@ class PikaClient(Observable):
         pika.log.info('Connecting to RabbitMQ')
         self.connecting = True
 
-        param = pika.ConnectionParameters(host='localhost')
+        connection_params = { 'host': self.rabbitmq_url.netloc }
+        if self.rabbitmq_url.username:
+            connection_params['credentials'] = pika.PlainCredentials(
+                self.rabbitmq_url.username,
+                self.rabbitmq_url.password)
+        if self.rabbitmq_url.path:
+            connection_params['virtual_host'] = self.rabbitmq_url.path
+
+        param = pika.ConnectionParameters(**connection_params)
+
         self.connection = TornadoConnection(param,
                 on_open_callback=self.on_connected)
+
         self.connection.add_on_close_callback(self.on_closed)
 
     def on_connected(self, connection):
@@ -93,7 +107,7 @@ class PikaClient(Observable):
 
 
 class Application():
-    def __init__(self, port):
+    def __init__(self, port, rabbitmq_url):
         settings = {
             'debug': True,
             'enabled_protocols': ['websocket',
@@ -113,7 +127,7 @@ class Application():
                 (r'.*', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
             ], **settings)
 
-        self.message_queue = PikaClient('hello')
+        self.message_queue = PikaClient('hello', rabbitmq_url)
         self.message_queue.attach(self)
         self.server = None
 

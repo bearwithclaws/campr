@@ -11,13 +11,13 @@ import django.core.handlers.wsgi
 from chat.chatroom import Application
 
 ROOT = op.normpath(op.dirname(__file__))
-def main(port):
+def main(port, rabbitmq_url):
     # Starting Django
     sys.path.append(op.join(ROOT, 'frontend'))
     os.environ['DJANGO_SETTINGS_MODULE'] = 'frontend.settings'
 
     # Tornadio app part
-    app = Application(port)
+    app = Application(port, rabbitmq_url)
     # Cleanup code
     def shutdown(sig, frame):
         app.stop()
@@ -34,6 +34,9 @@ if __name__ == "__main__":
 
     parser = OptionParser()
     parser.add_option('-p', '--port', dest='port', help='Specify the socket IO port')
+    parser.add_option('-r', '--rabbitmq_url', dest='rabbitmq_url', help='Specify the RabbitMQ URL')
     (options, args) = parser.parse_args()
 
-    main(options.port)
+    # I can't seem to make these default arg values of main :-/
+    main(port=options.port or 8001,
+         rabbitmq_url=options.rabbitmq_url or 'amqp://localhost')
