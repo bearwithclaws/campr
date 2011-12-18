@@ -34,9 +34,9 @@ if __name__ == "__main__":
 
     parser = OptionParser()
     parser.add_option('-p', '--port', dest='port', help='Specify the socket IO port')
-    parser.add_option('-r', '--rabbitmq_url', dest='rabbitmq_url', help='Specify the RabbitMQ URL')
     (options, args) = parser.parse_args()
 
-    # I can't seem to make these default arg values of main :-/
+    rabbitmq_url = 'RABBITMQ_URL' in os.environ and os.environ['RABBITMQ_URL'] or 'amqp://localhost'
+
     main(port=options.port or 8001,
-         rabbitmq_url=options.rabbitmq_url or 'amqp://localhost')
+         rabbitmq_url=rabbitmq_url)
