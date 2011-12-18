@@ -4,6 +4,7 @@
 
 frontend/database.sqlite
 uploads/
+/static/
 
 .Python
 bin/
