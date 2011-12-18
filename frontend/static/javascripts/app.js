@@ -24,11 +24,12 @@ $(function() {
         }
         else if (message.checkin) {
             var checkin = message.checkin;
+
             if (checkin.present) {
                 var $checkins = $('#checkins');
 
                 // Only add checkin to page if not already there
-                if (!checkins.find('#'+checkin.id).size()) {
+                if (!$checkins.find('#'+checkin.id).size()) {
                     var $new_checkin = $checkins.find('.checkin').first().clone();
                     $new_checkin.hide();
                     $new_checkin.attr('id', checkin.id);

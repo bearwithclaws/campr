@@ -9,17 +9,10 @@ urlpatterns = patterns('',
     url(r'^$', 'frontend.app.views.index', name='home'),
 
     url(r'^admin/', include(admin.site.urls)),
+
     url(r'^accounts/', include('frontend.accounts.urls')),
     url(r'^api/', include('frontend.api.urls')),
     url(r'^events/', include('frontend.events.urls')),
     url(r'', include('social_auth.urls')),
 
 )
-
-if settings.DEBUG:
-    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-    urlpatterns += staticfiles_urlpatterns()
-    urlpatterns += patterns('',
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-    )
