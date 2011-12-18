@@ -12,7 +12,7 @@ $(function() {
 });
 
 $(function() {
-    var s = new io.Socket(window.location.hostname, {port: 8001, rememberTransport: false});
+    var s = new io.Socket(window.location.hostname, {port: 80, rememberTransport: false});
     s.connect();
 
     s.addEvent('message', function(data) {
