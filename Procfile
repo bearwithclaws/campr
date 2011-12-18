@@ -1,1 +1,1 @@
-web: frontend/manage.py runserver 0.0.0.0:$PORT --noreload
+web: python frontend/manage.py collectstatic --noinput && python server.py --port $PORT
