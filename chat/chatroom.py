@@ -53,17 +53,20 @@ class PikaClient(Observable):
 
     # amqp://uname:pwd@host.heroku.srs.rabbitmq.com:13029/vhost
     def connection_parameters(self):
-        rabbitmq_url = urlparse('RABBITMQ_URL' in os.environ and os.environ['RABBITMQ_URL'] or 'amqp://localhost')
+        connection_parameters = settings.RABBITMQ_CONN
 
-        connection_parameters = {'host': rabbitmq_url.hostname}
-        if rabbitmq_url.port:
-            connection_parameters['port'] = rabbitmq_url.port
-        if rabbitmq_url.username:
-            connection_parameters['credentials'] = pika.PlainCredentials(
-                rabbitmq_url.username,
-                rabbitmq_url.password)
-        if rabbitmq_url.path:
-            connection_parameters['virtual_host'] = rabbitmq_url.path
+        if ('RABBITMQ_URL' in os.environ):
+            rabbitmq_url = urlparse(os.environ['RABBITMQ_URL'])
+
+            connection_parameters = {'host': rabbitmq_url.hostname}
+            if rabbitmq_url.port:
+                connection_parameters['port'] = rabbitmq_url.port
+            if rabbitmq_url.username:
+                connection_parameters['credentials'] = pika.PlainCredentials(
+                    rabbitmq_url.username,
+                    rabbitmq_url.password)
+            if rabbitmq_url.path:
+                connection_parameters['virtual_host'] = rabbitmq_url.path
 
         return connection_parameters
 
