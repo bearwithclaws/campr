@@ -59,7 +59,10 @@ class PikaClient(Observable):
         pika.log.info('Connecting to RabbitMQ')
         self.connecting = True
 
-        connection_params = { 'host': self.rabbitmq_url.netloc }
+        # build RabbitMQ connection parameters:
+        connection_params = {'host': self.rabbitmq_url.hostname}
+        if self.rabbitmq_url.port:
+            connection_params['port'] = self.rabbitmq_url.port
         if self.rabbitmq_url.username:
             connection_params['credentials'] = pika.PlainCredentials(
                 self.rabbitmq_url.username,
