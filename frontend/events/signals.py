@@ -11,9 +11,10 @@ def publish(data):
     connection_parameters = PikaClient().connection_parameters()
     connection = pika.BlockingConnection(pika.ConnectionParameters(**connection_parameters))
     channel = connection.channel()
-    channel.queue_declare(queue=settings.RABBITMQ_QUEUE_NAME)
+    queue_name = settings.RABBITMQ_QUEUE_NAME
+    channel.queue_declare(queue=queue_name)
 
-    channel.basic_publish(exchange='', routing_key='hello', body=data)
+    channel.basic_publish(exchange='', routing_key=queue_name, body=data)
     print ' [x] Data sent to queue: {0}'.format(data)
     connection.close()
 

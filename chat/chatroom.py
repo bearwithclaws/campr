@@ -38,8 +38,7 @@ class PikaClient(Observable):
     def __init__(self):
         Observable.__init__(self)
 
-        #self.queue_name = settings.RABBITMQ_QUEUE_NAME
-        self.queue_name = 'hello'
+        self.queue_name = settings.RABBITMQ_QUEUE_NAME
 
         # States
         self.connected = False
