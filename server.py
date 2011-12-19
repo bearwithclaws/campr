@@ -11,13 +11,13 @@ import django.core.handlers.wsgi
 from chat.chatroom import Application
 
 ROOT = op.normpath(op.dirname(__file__))
-def main(port, rabbitmq_url):
+def main(port):
     # Starting Django
     sys.path.append(op.join(ROOT, 'frontend'))
     os.environ['DJANGO_SETTINGS_MODULE'] = 'frontend.settings'
 
     # Tornadio app part
-    app = Application(port, rabbitmq_url)
+    app = Application(port)
     # Cleanup code
     def shutdown(sig, frame):
         app.stop()
@@ -36,7 +36,4 @@ if __name__ == "__main__":
     parser.add_option('-p', '--port', dest='port', help='Specify the socket IO port')
     (options, args) = parser.parse_args()
 
-    rabbitmq_url = 'RABBITMQ_URL' in os.environ and os.environ['RABBITMQ_URL'] or 'amqp://localhost'
-
-    main(port=options.port or 8001,
-         rabbitmq_url=rabbitmq_url)
+    main(port=options.port or 8001)

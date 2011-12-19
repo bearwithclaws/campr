@@ -5,8 +5,11 @@ import pika
 from events.models import Message, Checkin
 from django.utils import simplejson
 
+from chat.chatroom import PikaClient
+
 def publish(data):
-    connection = pika.BlockingConnection(pika.ConnectionParameters(**settings.RABBITMQ_CONN))
+    connection_parameters = PikaClient().connection_parameters()
+    connection = pika.BlockingConnection(pika.ConnectionParameters(**connection_parameters))
     channel = connection.channel()
     channel.queue_declare(queue=settings.RABBITMQ_QUEUE_NAME)
 

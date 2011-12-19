@@ -1,5 +1,6 @@
 #! /usr/bin/env python
-from os import path as op
+import os
+import os.path as op
 import signal
 import pika
 from pika.adapters.tornado_connection import TornadoConnection
@@ -11,6 +12,7 @@ import tornadio.server
 from lib.observer import Observable
 import django.core.handlers.wsgi
 from urlparse import urlparse
+from django.conf import settings
 
 ROOT = op.normpath(op.join(op.dirname(__file__), '../'))
 
@@ -33,13 +35,11 @@ class ChatConnection(tornadio.SocketConnection):
 
 
 class PikaClient(Observable):
-    def __init__(self, queue_name, rabbitmq_url):
+    def __init__(self):
         Observable.__init__(self)
 
-        self.queue_name = queue_name
-
-        # amqp://uname:pwd@host.heroku.srs.rabbitmq.com:13029/vhost
-        self.rabbitmq_url = urlparse(rabbitmq_url)
+        #self.queue_name = settings.RABBITMQ_QUEUE_NAME
+        self.queue_name = 'hello'
 
         # States
         self.connected = False
@@ -52,6 +52,22 @@ class PikaClient(Observable):
         # Message caches
         self.messages = list()
 
+    # amqp://uname:pwd@host.heroku.srs.rabbitmq.com:13029/vhost
+    def connection_parameters(self):
+        rabbitmq_url = urlparse('RABBITMQ_URL' in os.environ and os.environ['RABBITMQ_URL'] or 'amqp://localhost')
+
+        connection_parameters = {'host': rabbitmq_url.hostname}
+        if rabbitmq_url.port:
+            connection_parameters['port'] = rabbitmq_url.port
+        if rabbitmq_url.username:
+            connection_parameters['credentials'] = pika.PlainCredentials(
+                rabbitmq_url.username,
+                rabbitmq_url.password)
+        if rabbitmq_url.path:
+            connection_parameters['virtual_host'] = rabbitmq_url.path
+
+        return connection_parameters
+
     def connect(self):
         if self.connecting:
             pika.log.info('Already connecting to RabbitMQ')
@@ -59,18 +75,8 @@ class PikaClient(Observable):
         pika.log.info('Connecting to RabbitMQ')
         self.connecting = True
 
-        # build RabbitMQ connection parameters:
-        connection_params = {'host': self.rabbitmq_url.hostname}
-        if self.rabbitmq_url.port:
-            connection_params['port'] = self.rabbitmq_url.port
-        if self.rabbitmq_url.username:
-            connection_params['credentials'] = pika.PlainCredentials(
-                self.rabbitmq_url.username,
-                self.rabbitmq_url.password)
-        if self.rabbitmq_url.path:
-            connection_params['virtual_host'] = self.rabbitmq_url.path
-
-        param = pika.ConnectionParameters(**connection_params)
+        connection_parameters = self.connection_parameters()
+        param = pika.ConnectionParameters(**connection_parameters)
 
         self.connection = TornadoConnection(param,
                 on_open_callback=self.on_connected)
@@ -110,7 +116,7 @@ class PikaClient(Observable):
 
 
 class Application():
-    def __init__(self, port, rabbitmq_url):
+    def __init__(self, port):
         settings = {
             'debug': True,
             'enabled_protocols': ['websocket',
@@ -130,7 +136,7 @@ class Application():
                 (r'.*', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
             ], **settings)
 
-        self.message_queue = PikaClient('hello', rabbitmq_url)
+        self.message_queue = PikaClient()
         self.message_queue.attach(self)
         self.server = None
 
