@@ -53,7 +53,7 @@ class PikaClient(Observable):
 
     # amqp://uname:pwd@host.heroku.srs.rabbitmq.com:13029/vhost
     def connection_parameters(self):
-        connection_parameters = settings.RABBITMQ_CONN
+        connection_parameters = {}
 
         if ('RABBITMQ_URL' in os.environ):
             rabbitmq_url = urlparse(os.environ['RABBITMQ_URL'])
@@ -67,6 +67,10 @@ class PikaClient(Observable):
                     rabbitmq_url.password)
             if rabbitmq_url.path:
                 connection_parameters['virtual_host'] = rabbitmq_url.path
+        elif (hasattr(settings, 'RABBITMQ_CONN')):
+            connection_parameters = settings.RABBITMQ_CONN
+        else:
+            raise Exception("Cannot find RabbitMQ connection parameters from os.environ or settings.")
 
         return connection_parameters
 
