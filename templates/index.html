@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{ title }}</title>
+    </head>
+    <body>
+        <form action="/" method="post">
+            <input type="text" name="status">
+            <input type="submit" value="Update">
+        </form>
+
+        <div id="rolling-statuses">
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
+        <script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+        <script src="//cdn.socket.io/stable/socket.io.js"></script>
+        <script>WEB_SOCKET_SWF_LOCATION = 'http://cdn.socket.io/stable/WebSocketMain.swf';</script>
+        <script src="/static/js/app.js"></script>
+    </body>
+</html>
