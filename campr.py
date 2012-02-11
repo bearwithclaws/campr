@@ -50,7 +50,7 @@ class Campr():
     """
     def __init__(self):
         """
-        Constructor. Currently takes not arguments.
+        Constructor. Currently takes no arguments.
         """
         settings = {
             "static_path": os.path.join(os.path.dirname(__file__), "static"),
