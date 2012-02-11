@@ -3,11 +3,20 @@ This module contains classes that contribute to the Campr class, which
 is a tornado app that handles all of Campr's functionality.
 """
 import os
+import os.path as op
+
 import tornadio
 import tornadio.router
 import tornadio.server
+
 import tornado.ioloop
 import tornado.web
+import tornado.wsgi
+
+import django.core.handlers.wsgi
+from django.conf import settings
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'frontend.settings'
 
 class HomeHandler(tornado.web.RequestHandler):
     """
@@ -35,6 +44,7 @@ class CamprConnection(tornadio.SocketConnection):
         Handles when we receive a new message from a participant over socket.IO
         """
         for p in self.participants:
+
             p.send('{0}'.format(message))
 
     def on_close(self):
@@ -52,7 +62,7 @@ class Campr():
         """
         Constructor. Currently takes no arguments.
         """
-        settings = {
+        tornado_settings = {
             "static_path": os.path.join(os.path.dirname(__file__), "static"),
             "socket_io_port": 8888,
             'flash_policy_port': 843,
@@ -61,10 +71,16 @@ class Campr():
                                   'xhr-multipart',
                                   'xhr-polling'],
         }
+
+        wsgi_app = tornado.wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
+
         self.application = tornado.web.Application([
-                (r"/", HomeHandler),
+                (r'/', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
+                (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': op.join(settings.ROOT, 'static')}),
                 tornadio.get_router(CamprConnection).route(),
-            ], **settings)
+                (r'.*', tornado.web.FallbackHandler, {'fallback': wsgi_app}),
+            ], **tornado_settings)
+
         self.server = None
 
     def start(self):
