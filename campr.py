@@ -1,6 +1,10 @@
 """
 This module contains classes that contribute to the Campr class, which
 is a tornado app that handles all of Campr's functionality.
+
+Note that the bulk of Campr is handled by a Django app found in frontend/.
+The Tornado app delegates most of the HTTP request to this, and only
+handles the pubsub part of the app itself.
 """
 import os
 import os.path as op
@@ -17,13 +21,6 @@ import django.core.handlers.wsgi
 from django.conf import settings
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'frontend.settings'
-
-class HomeHandler(tornado.web.RequestHandler):
-    """
-    Handles basic homepage HTTP requests.
-    """
-    def get(self):
-        self.render("templates/index.html", title="Home")
 
 
 class CamprConnection(tornadio.SocketConnection):
@@ -72,6 +69,7 @@ class Campr():
                                   'xhr-polling'],
         }
 
+        # The wrapper around our Django app.
         wsgi_app = tornado.wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
 
         self.application = tornado.web.Application([
