@@ -1,28 +1,71 @@
 $(function() {
+    var socket = new io.Socket(window.location.hostname, {port: 8888, rememberTransport: false});
+    socket.connect();
+
     $('#update-status').submit(function() {
         var form = $(this);
-        var status_message = form.find('textarea[name=message]').val();
+
+        // First we post the update...
         $.post(
             form.attr('action'),
             form.serialize(),
+            function() {
+                // ...and when we know it has successfully been saved
+                // to DB, broadcast to other participants.
+                socket.send(JSON.stringify({
+                    "type":       'update',
+                    "message":    form.find('textarea[name=message]').val(),
+                    "checkin_id": form.find('input[name=checkin_id]').val()
+                }));
+            },
             'json'
         );
+
         return false;
     });
-});
 
-$(function() {
-    var s = new io.Socket(window.location.hostname, {port: 80, rememberTransport: false});
-    s.connect();
+    $('a.logout').click(function() {
+        var me = $('li.me');
 
-    s.addEvent('message', function(data) {
+        socket.send(JSON.stringify({
+            "type": 'checkin',
+            "checkin": {
+                "id": me.attr('id'),
+                "present": false
+            }
+        }));
+
+        me.hide('slow');
+    });
+
+    socket.addEvent('connect', function() {
+        // Inefficient, but will serve our needs for the time-being...
+        if ($('#checkins').size()) {
+
+            var me = $('li.me');
+            var username = me.find('.checkin-name a').html().substr(1);  // chop off the leading @
+
+            socket.send(JSON.stringify({
+                "type": 'checkin',
+                "checkin": {
+                    "id": me.attr('id'),
+                    "profile_image_url": me.find('img').attr('src'),
+                    "username": username,
+                    "latest_message": me.find('.twipsy-inner').html(),
+                    "present": true
+                }
+            }));
+        }
+    });
+
+    socket.addEvent('message', function(data) {
         var message = JSON.parse(data);
 
-        if (message.status) {
-            bubble = $('#'+message.status.checkin_id+' div.twipsy-inner');
-            bubble.hide().html(message.status.message).fadeIn('slow');
+        if (message.type == 'update') {
+            bubble = $('#'+message.checkin_id+' div.twipsy-inner');
+            bubble.hide().html(message.message).fadeIn('slow');
         }
-        else if (message.checkin) {
+        else if (message.type == 'checkin') {
             var checkin = message.checkin;
 
             if (checkin.present) {
@@ -43,14 +86,7 @@ $(function() {
             else {
                 var $checkin = $('#'+checkin.id);
                 $checkin.hide('slow', function() { $checkin.remove(); });
-
-                // If user logged out from another location!
-                if (checkin.id == $('#update-status input[name="checkin_id"]').val()) {
-                    // window.location.href($('a.logout').first().attr('href'));
-                    $('a.logout').first().attr('href').click();
-                }
             }
         }
-
     });
 });
