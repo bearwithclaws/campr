@@ -1,11 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 import tweepy
-try:
-    from events.signals import *
-except:
-    pass
-
 
 class Event(models.Model):
     name = models.CharField(max_length=100)
