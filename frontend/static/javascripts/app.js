@@ -85,6 +85,8 @@ $(function() {
                     $new_checkin.find('.checkin-name a').attr('href', 'http://twitter.com/'+checkin.username).html('@'+checkin.username);
                     $new_checkin.find('div.twipsy-inner').html(checkin.latest_message);
 
+                    $new_checkin.removeClass('me');
+
                     $new_checkin.appendTo($checkins).show('slow');
                 }
             }
