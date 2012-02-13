@@ -1,8 +1,9 @@
 $(function() {
 
+    var port = window.location.port || 80;
     var socket = new io.Socket(
             window.location.hostname,
-            {port: window.location.port, rememberTransport: false}
+            {port: port, rememberTransport: false}
         );
     socket.connect();
 
