@@ -6,7 +6,13 @@ import signal
 from campr import Campr
 
 if __name__ == "__main__":
-    campr = Campr()
+    from optparse import OptionParser
+
+    parser = OptionParser()
+    parser.add_option('-p', '--port', dest='port', help='Specify the socket IO port')
+    (options, args) = parser.parse_args()
+
+    campr = Campr(port=options.port or 8001)
 
     def shutdown(sig, frame):
         campr.stop()

@@ -1,5 +1,9 @@
 $(function() {
-    var socket = new io.Socket(window.location.hostname, {port: 8888, rememberTransport: false});
+
+    var socket = new io.Socket(
+            window.location.hostname,
+            {port: window.location.port, rememberTransport: false}
+        );
     socket.connect();
 
     $('#update-status').submit(function() {

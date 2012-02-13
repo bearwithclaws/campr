@@ -55,13 +55,13 @@ class Campr():
     """
     The Campr tornado application.
     """
-    def __init__(self):
+    def __init__(self, port):
         """
         Constructor. Currently takes no arguments.
         """
         tornado_settings = {
             "static_path": os.path.join(os.path.dirname(__file__), "static"),
-            "socket_io_port": 8888,
+            "socket_io_port": port,
             'flash_policy_port': 843,
             'enabled_protocols': ['websocket',
                                   'flashsocket',
