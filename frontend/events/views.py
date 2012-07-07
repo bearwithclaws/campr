@@ -5,7 +5,7 @@ from frontend.events.models import Event, Checkin
 from django.contrib.auth.models import User
 
 # Create your views here.
-def dashboard(request, event_id=None, slug=''):
+def index(request, event_id=None, slug=''):
     """Login complete view, displays user data"""
 
     if(event_id is not None):
@@ -32,7 +32,7 @@ def dashboard(request, event_id=None, slug=''):
         'checkins': checkins,
         'last_login': request.session.get('social_auth_last_login_backend'),
     }
-    return render_to_response('events/dashboard_loggedin.html', ctx, RequestContext(request))
+    return render_to_response('events/index.html', ctx, RequestContext(request))
 
 @login_required
 def checkin(request, event_id, slug=''):
@@ -48,4 +48,4 @@ def checkin(request, event_id, slug=''):
         checkin.present = True
         checkin.save()
 
-    return redirect(dashboard, event_id=event_id)
+    return redirect(index, event_id=event_id)
