@@ -1,6 +1,7 @@
 *.pyc
 *.swp
 .DS_Store
+frontend/local_settings.py
 
 frontend/database.sqlite
 uploads/
