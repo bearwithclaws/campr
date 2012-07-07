@@ -4,7 +4,7 @@ distribute==0.6.19
 django-debug-toolbar==0.8.5
 https://github.com/mozilla/django-piston/tarball/master
 django-social-auth==0.5.13
-httplib2==0.7.1
+httplib2==0.7.4
 https://github.com/felixleong/python-oauth2/tarball/master
 python-openid==2.2.5
 tornado==2.1.1
