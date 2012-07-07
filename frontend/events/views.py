@@ -30,7 +30,6 @@ def index(request, event_id=None, slug=''):
         'event': event,
         'checkin': checkin,
         'checkins': checkins,
-        'last_login': request.session.get('social_auth_last_login_backend'),
     }
     return render_to_response('events/index.html', ctx, RequestContext(request))
 
