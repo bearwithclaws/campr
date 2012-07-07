@@ -21,8 +21,13 @@ class Checkin(models.Model):
         return "{0}: {1}".format(self.user.username, self.event.name)
 
     def profile_image_url(self):
-        twitter_user = tweepy.api.get_user(self.user.username)
-        return twitter_user.profile_image_url.replace('_normal', '_bigger');
+        image_url = '/static/images/profile_image.jpg'
+        try:
+            twitter_user = tweepy.api.get_user(self.user.username)
+            image_url = twitter_user.profile_image_url.replace('_normal', '_bigger');
+        except tweepy.TweepError:
+            pass
+        return image_url;
 
     def latest_message(self):
         try:
