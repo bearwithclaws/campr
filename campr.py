@@ -63,7 +63,8 @@ class Campr():
             "static_path": os.path.join(os.path.dirname(__file__), "static"),
             "socket_io_port": port,
             'flash_policy_port': 843,
-            'enabled_protocols': ['flashsocket',
+            'enabled_protocols': ['websocket',
+                                  'flashsocket',
                                   'xhr-multipart',
                                   'xhr-polling'],
         }
