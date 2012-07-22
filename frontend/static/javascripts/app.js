@@ -43,6 +43,14 @@ $(function() {
         me.hide('slow');
     });
 
+    $('#checkin-now').submit(function() {
+        var form = $(this);
+        var loc = window.location;
+        var url = loc.protocol+'//'+loc.host+'/events/'+form.find('input[name=slug]').val()+'/checkin';
+        window.location.href = url;
+        return false;
+    });
+
     socket.addEvent('connect', function() {
         // Inefficient, but will serve our needs for the time-being...
         if ($('#checkins').size()) {
