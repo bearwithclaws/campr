@@ -57,7 +57,7 @@ class Campr():
     """
     def __init__(self, port):
         """
-        Constructor. Currently takes no arguments.
+        Constructor.
         """
         tornado_settings = {
             "static_path": os.path.join(os.path.dirname(__file__), "static"),
