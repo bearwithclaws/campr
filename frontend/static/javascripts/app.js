@@ -8,19 +8,19 @@ $(function() {
     socket.connect();
 
     $('#update-status').submit(function() {
-        var form = $(this);
+        var $form = $(this);
 
         // First we post the update...
         $.post(
-            form.attr('action'),
-            form.serialize(),
+            $form.attr('action'),
+            $form.serialize(),
             function() {
                 // ...and when we know it has successfully been saved
                 // to DB, broadcast to other participants.
                 socket.send(JSON.stringify({
                     "type":       'update',
-                    "message":    form.find('textarea[name=message]').val(),
-                    "checkin_id": form.find('input[name=checkin_id]').val()
+                    "message":    $form.find('textarea[name=message]').val(),
+                    "checkin_id": $form.find('input[name=checkin_id]').val()
                 }));
             },
             'json'
@@ -30,23 +30,23 @@ $(function() {
     });
 
     $('a.logout').click(function() {
-        var me = $('li.me');
+        var $me = $('li.me');
 
         socket.send(JSON.stringify({
             "type": 'checkin',
             "checkin": {
-                "id": me.attr('id'),
+                "id": $me.attr('id'),
                 "present": false
             }
         }));
 
-        me.hide('slow');
+        $me.hide('slow');
     });
 
     $('#checkin-now').submit(function() {
-        var form = $(this);
+        var $form = $(this);
         var loc = window.location;
-        var url = loc.protocol+'//'+loc.host+'/events/'+form.find('input[name=slug]').val()+'/checkin';
+        var url = loc.protocol+'//'+loc.host+'/events/'+$form.find('input[name=slug]').val()+'/checkin';
         window.location.href = url;
         return false;
     });
@@ -55,16 +55,16 @@ $(function() {
         // Inefficient, but will serve our needs for the time-being...
         if ($('#checkins').size()) {
 
-            var me = $('li.me');
-            var username = me.find('.checkin-name a').html().substr(1);  // chop off the leading @
+            var $me = $('li.me');
+            var username = $me.find('.checkin-name a').html().substr(1);  // chop off the leading @
 
             socket.send(JSON.stringify({
                 "type": 'checkin',
                 "checkin": {
-                    "id": me.attr('id'),
-                    "profile_image_url": me.find('img').attr('src'),
+                    "id": $me.attr('id'),
+                    "profile_image_url": $me.find('img').attr('src'),
                     "username": username,
-                    "latest_message": me.find('.twipsy-inner').html(),
+                    "latest_message": $me.find('.twipsy-inner').html(),
                     "present": true
                 }
             }));
@@ -75,8 +75,8 @@ $(function() {
         var message = JSON.parse(data);
 
         if (message.type == 'update') {
-            bubble = $('#'+message.checkin_id+' div.twipsy-inner');
-            bubble.hide().html(message.message).fadeIn('slow');
+            $bubble = $('#'+message.checkin_id+' div.twipsy-inner');
+            $bubble.hide().html(message.message).fadeIn('slow');
         }
         else if (message.type == 'checkin') {
             var checkin = message.checkin;
