@@ -30,7 +30,7 @@
 <div id="my-status">
   <h2>Hey @{{ checkin.user.username }}, what's on your mind?</h2>
   <img src="{{ checkin.profile_image_url }}" />
-  <form id="update-status" action="/api/events/{{ event.id }}/messages/">
+  <form id="update-status" action="#">
     <textarea name="message" placeholder="{{ checkin.latest_message|default:"e.g. I'm looking for a web developer." }}"></textarea>
     <input class="button" type="submit" value="Update" />
     <input type="hidden" name="checkin_id" value="{{ checkin.id }}"/>
