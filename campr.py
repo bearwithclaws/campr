@@ -8,6 +8,9 @@ handles the pubsub part of the app itself.
 """
 import os
 import os.path as op
+os.environ['DJANGO_SETTINGS_MODULE'] = 'frontend.settings'
+
+import json
 
 import tornadio
 import tornadio.router
@@ -19,9 +22,7 @@ import tornado.wsgi
 
 import django.core.handlers.wsgi
 from django.conf import settings
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'frontend.settings'
-
+from frontend.events.models import Message, Checkin
 
 class CamprConnection(tornadio.SocketConnection):
     """
@@ -36,13 +37,19 @@ class CamprConnection(tornadio.SocketConnection):
         """
         self.participants.add(self)
 
-    def on_message(self, message):
+    def on_message(self, messageStr):
         """
         Handles when we receive a new message from a participant over socket.IO
         """
-        for p in self.participants:
+        message = json.loads(messageStr)
+        if message['type'] == 'update':
+            message = Message(
+                checkin=Checkin.objects.get(id=message['checkin_id']),
+                message=message['message'])
+            message.save()
 
-            p.send('{0}'.format(message))
+        for p in self.participants:
+            p.send('{0}'.format(messageStr))
 
     def on_close(self):
         """

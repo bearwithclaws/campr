@@ -10,21 +10,11 @@ $(function() {
     $('#update-status').submit(function() {
         var $form = $(this);
 
-        // First we post the update...
-        $.post(
-            $form.attr('action'),
-            $form.serialize(),
-            function() {
-                // ...and when we know it has successfully been saved
-                // to DB, broadcast to other participants.
-                socket.send(JSON.stringify({
-                    "type":       'update',
-                    "message":    $form.find('textarea[name=message]').val(),
-                    "checkin_id": $form.find('input[name=checkin_id]').val()
-                }));
-            },
-            'json'
-        );
+        socket.send(JSON.stringify({
+            "type":       'update',
+            "message":    $form.find('textarea[name=message]').val(),
+            "checkin_id": $form.find('input[name=checkin_id]').val()
+        }));
 
         return false;
     });
