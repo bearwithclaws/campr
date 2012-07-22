@@ -159,6 +159,11 @@ a.logout {
 #checkin-now input {
     display:inline;
 }
+#tagline p.error {
+    color:#ff4346;
+    font-size:90%;
+    margin:0 auto;
+}
 
 /* #Media Queries
 ================================================== */

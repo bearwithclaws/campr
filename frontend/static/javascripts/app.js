@@ -34,10 +34,24 @@ $(function() {
     });
 
     $('#checkin-now').submit(function() {
-        var $form = $(this);
-        var loc = window.location;
-        var url = loc.protocol+'//'+loc.host+'/events/'+$form.find('input[name=slug]').val()+'/checkin';
-        window.location.href = url;
+        var $form = $(this).hide();
+        var $img = $form.siblings('img').show();
+        var slug = $form.find('input[name=slug]').val();
+
+        $.ajax({
+            url: '/api/events/'+slug,
+            success: function() {
+                var loc = window.location;
+                var url = loc.protocol+'//'+loc.host+'/events/'+slug+'/checkin';
+                window.location.href = url;
+            },
+            error: function() {
+                $form.show();
+                $form.find('p.error').remove();
+                $form.append('<p class="error">Event doesn&rsquo;t exist. Maybe you mistyped it. Please try again.</p>');
+                $img.hide();
+            },
+        });
         return false;
     });
 
