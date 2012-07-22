@@ -5,7 +5,7 @@ from frontend.api.handlers import EventHandler, MessageHandler
 
 django_auth = DjangoAuthentication()
 
-events = Resource(handler=EventHandler, authentication=django_auth)
+events = Resource(handler=EventHandler)
 messages = Resource(handler=MessageHandler, authentication=django_auth)
 
 urlpatterns = patterns('frontend.api.views',
