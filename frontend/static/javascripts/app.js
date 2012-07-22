@@ -11,9 +11,9 @@ $(function() {
         var $form = $(this);
 
         socket.send(JSON.stringify({
-            "type":       'update',
-            "message":    $form.find('textarea[name=message]').val(),
-            "checkin_id": $form.find('input[name=checkin_id]').val()
+            type:       'update',
+            message:    $form.find('textarea[name=message]').val(),
+            checkin_id: $form.find('input[name=checkin_id]').val()
         }));
 
         return false;
@@ -23,10 +23,10 @@ $(function() {
         var $me = $('li.me');
 
         socket.send(JSON.stringify({
-            "type": 'checkin',
-            "checkin": {
-                "id": $me.attr('id'),
-                "present": false
+            type: 'checkin',
+            checkin: {
+                id: $me.attr('id'),
+                present: false
             }
         }));
 
@@ -49,13 +49,13 @@ $(function() {
             var username = $me.find('.checkin-name a').html().substr(1);  // chop off the leading @
 
             socket.send(JSON.stringify({
-                "type": 'checkin',
-                "checkin": {
-                    "id": $me.attr('id'),
-                    "profile_image_url": $me.find('img').attr('src'),
-                    "username": username,
-                    "latest_message": $me.find('.twipsy-inner').html(),
-                    "present": true
+                type: 'checkin',
+                checkin: {
+                    id: $me.attr('id'),
+                    profile_image_url: $me.find('img').attr('src'),
+                    username: username,
+                    latest_message: $me.find('.twipsy-inner').html(),
+                    present: true
                 }
             }));
         }
