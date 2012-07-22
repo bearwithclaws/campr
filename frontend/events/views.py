@@ -34,7 +34,7 @@ def index(request, event_id=None, slug=''):
     return render_to_response('events/index.html', ctx, RequestContext(request))
 
 @login_required
-def checkin(request, event_id, slug=''):
+def checkin(request, event_id=None, slug=''):
     """Checks-in to the event"""
     if(event_id is not None):
         event = get_object_or_404(Event, id=event_id)
@@ -47,4 +47,4 @@ def checkin(request, event_id, slug=''):
         checkin.present = True
         checkin.save()
 
-    return redirect(index, event_id=event_id)
+    return redirect(index, event_id=event.id)
