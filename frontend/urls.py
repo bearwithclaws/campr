@@ -11,7 +11,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^accounts/', include('frontend.accounts.urls')),
-    url(r'^api/', include('frontend.api.urls')),
     url(r'^events/', include('frontend.events.urls')),
     url(r'', include('social_auth.urls')),
 
